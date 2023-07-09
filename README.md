@@ -5,14 +5,11 @@
 ## Installation
 1. Create conda environment
 ```shell
-conda create --name edgenext python=3.8
-conda activate edgenext
+conda create --name vafa python=3.8
+conda activate vafa
 ```
-2. Install PyTorch and torchvision
-```shell
-pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu113
-```
-3. Install other dependencies
+2. Install PyTorch and other dependencies
 ```shell
 pip install -r requirements.txt
 ```
+
