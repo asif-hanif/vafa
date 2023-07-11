@@ -34,6 +34,16 @@ pip install -r requirements.txt
 ```
 
 ## Datatset
+The dataset folders for Synapse should be organized as follows: 
+
+```
+DATASET_SYNAPSE/
+  ├── imagesTr/
+  ├── imagesTs/
+  ├── labelsTr/
+  ├── labelsTs/
+  ├── dataset.json
+ ```
 
 
 ## Model
@@ -70,17 +80,20 @@ python unetr_gen_train_or_val_adv.py --feature_size=16 --infer_overlap=0.5 \
 --use_ssim_loss \
 --save_adv_images_dir=<PATH_TO_SAVE_ADV_TEST_IMAGES> 
 ```
-
+If adversarial images are not intended to be saved, use `--debugging` argument.
 
 ## Adversarial Training of the Model
-
 ```shell
-pip install -r requirements.txt
+python unetr_adv_training.py --feature_size=16 --batch_size=4 --optim_lr=1e-4 --lrschedule=warmup_cosine --infer_overlap=0.5 \
+--save_checkpoint \
+--data_dir=<PATH_OF_DATASET> \
+--json_list=dataset_synapse.json \
+--use_pretrained \
+--pretrained_path=<PATH_OF_PRETRAINED_MODEL>  \
+--adv_training_freq_reg_mode \
+--attack_name vafa \
+--q_max 20 --steps 20 --block_size 32 32 32 --use_ssim_loss \
+--save_model_dir=<PATH_TO__SAVE_ADVERSARIALLY_TRAINED_MODEL> \
+--val_every 1
 ```
 
-
-
-
-
-
-## References
