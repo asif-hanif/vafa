@@ -82,7 +82,7 @@ python unetr_gen_train_or_val_adv.py --feature_size=16 --infer_overlap=0.5 \
 ```
 If adversarial images are not intended to be saved, use `--debugging` argument.
 
-## Adversarial Training of the Model
+## Lanuch Adversarial Training (VAFT) of the Model
 ```shell
 python unetr_adv_training.py --feature_size=16 --batch_size=4 --optim_lr=1e-4 --lrschedule=warmup_cosine --infer_overlap=0.5 \
 --save_checkpoint \
