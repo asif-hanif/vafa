@@ -43,20 +43,40 @@ model = UNETR(
     in_channels=1,
     out_channels=14,
     img_size=(96,96,96),
-    feature_size=args.feature_size,
-    hidden_size=args.hidden_size,
-    mlp_dim=args.mlp_dim,
-    num_heads=args.num_heads,
-    pos_embed=args.pos_embed,
-    norm_name=args.norm_name,
+    feature_size=16,
+    hidden_size=768,
+    mlp_dim=3072,
+    num_heads=12,
+    pos_embed=perceptron,
+    norm_name=instance,
     conv_block=True,
     res_block=True,
-    dropout_rate=args.dropout_rate)
+    dropout_rate=0.0)
 
 ```
 
+## Launch VAFA Attack on the Model
+```shell
+python unetr_gen_train_or_val_adv.py --feature_size=16 --infer_overlap=0.5 \
+--data_dir=<PATH_OF_DATASET> \
+--json_list=dataset_synapse.json \
+--use_pretrained \
+--pretrained_path=<PATH_OF_PRETRAINED_MODEL>  \
+--gen_val_adv_mode \
+--attack_name vafa \
+--q_max 20 \
+--steps 20 \
+--block_size 32 32 32 \
+--use_ssim_loss \
+--save_adv_images_dir=<PATH_TO_SAVE_ADV_TEST_IMAGES> 
+```
 
 
+## Adversarial Training of the Model
+
+```shell
+pip install -r requirements.txt
+```
 
 
 
