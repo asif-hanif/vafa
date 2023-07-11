@@ -10,9 +10,9 @@
 ## Brief Description 
 In the context of 2D natural images, it has been recently observed that frequency-domain based adversarial attacks are more effective against the defenses that are primarily designed to ``undo'' the impact of pixel-domain adversarial noise in natural images. Motivated by this observation in 2D natural images, here we explore the effectiveness of frequency-domain based adversarial attacks in the regime of volumetric medical image segmentation and aim to obtain a volumetric medical image segmentation model that is robust against adversarial attacks. To achieve this goal, we propose a *min-max* objective for adversarial training of volumetric medical image segmentation model in frequency-domain. 
 
-**(1) Volumetric Adversaral Frequency Attack (VAFA)**: For *maximization* step, we introduce **V**olumetric **A**dversarial **F**requency **A**ttack - **VAFA** which operates in the frequency-domain of the data (unlike other prevalent voxel-domain attacks) and explicitly takes into account the 3D nature of the volumetric medical data to achieve higher fooling rate. The proposed \textbf{VAFA} transforms the 3D patches of input volumetric medical image into frequency-domain by employing 3D discrete cosine transform (3D-DCT) and perturbs the DCT coefficients via a learnable \textit{quantization} table and then converts the perturbed frequency-domain data back into voxel-domain through inverse 3D-DCT. To preserve structural information in adversarial sample, we incorporate SSIM loss along with adversarial loss which helps us attain better SSIM and LPIPS. 
+**[1] Volumetric Adversaral Frequency Attack (VAFA)**: For *maximization* step, we introduce **V**olumetric **A**dversarial **F**requency **A**ttack - **VAFA** which operates in the frequency-domain of the data (unlike other prevalent voxel-domain attacks) and explicitly takes into account the 3D nature of the volumetric medical data to achieve higher fooling rate. The proposed \textbf{VAFA} transforms the 3D patches of input volumetric medical image into frequency-domain by employing 3D discrete cosine transform (3D-DCT) and perturbs the DCT coefficients via a learnable \textit{quantization} table and then converts the perturbed frequency-domain data back into voxel-domain through inverse 3D-DCT. To preserve structural information in adversarial sample, we incorporate SSIM loss along with adversarial loss which helps us attain better SSIM and LPIPS. 
 
-**(2) Volumetric Adversaral Frequency Training (VAFT)**: For *minimization* step, we propose **V**olumetric **A**dversarial **F**requency **T**raining - **VAFT** to obtain a model that is robust to adversarial attacks. In VAFT, we update model parameters on clean and adversarial (obtained via VAFA) samples and further introduce a novel *frequency consistency loss* to keep frequency representation of logits of clean and adversarial samples close to each other for a better accuracy tradeoff.
+**[2] Volumetric Adversaral Frequency Training (VAFT)**: For *minimization* step, we propose **V**olumetric **A**dversarial **F**requency **T**raining - **VAFT** to obtain a model that is robust to adversarial attacks. In VAFT, we update model parameters on clean and adversarial (obtained via VAFA) samples and further introduce a novel *frequency consistency loss* to keep frequency representation of logits of clean and adversarial samples close to each other for a better accuracy tradeoff.
 
 
 ## Updates :loudspeaker:
@@ -37,7 +37,30 @@ pip install -r requirements.txt
 
 
 ## Model
+We use UNETR model with following parameters:
+```python
+model = UNETR(
+    in_channels=1,
+    out_channels=14,
+    img_size=(96,96,96),
+    feature_size=args.feature_size,
+    hidden_size=args.hidden_size,
+    mlp_dim=args.mlp_dim,
+    num_heads=args.num_heads,
+    pos_embed=args.pos_embed,
+    norm_name=args.norm_name,
+    conv_block=True,
+    res_block=True,
+    dropout_rate=args.dropout_rate)
+
+```
 
 
 
 
+
+
+
+
+
+## References
