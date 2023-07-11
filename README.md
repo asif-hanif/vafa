@@ -2,13 +2,18 @@
 
 
 
+
+### Volumetric Adversaral Frequency Attack (VAFA)
+### Volumetric Adversarial Frequency Training (VAFT)
+![alt text](/media/vafa_vaft.png)
+
 ## Updates :loudspeaker:
 - **July 11, 2023** : 
 - **July 10, 2023** : 
 - **May 25, 2023** : Early acceptance in [MICCAI 2023](https://conferences.miccai.org/2023/en/)  &nbsp;&nbsp; :confetti_ball:
 
 
-
+<br>
 
 ## Installation :wrench:
 1. Create conda environment
