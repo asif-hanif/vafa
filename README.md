@@ -42,12 +42,12 @@ DATASET_SYNAPSE/
   ├── imagesTs/
   ├── labelsTr/
   ├── labelsTs/
-  ├── dataset.json
+  ├── dataset_synapse_18_12.json
  ```
-
+File `dataset_synapse_18_12.json` contains train-test split of Synapse datatset. There are 18 train images and 12 test images. File can be accessed here. 
 
 ## Model
-We use UNETR model with following parameters:
+We use [UNETR](https://openaccess.thecvf.com/content/WACV2022/papers/Hatamizadeh_UNETR_Transformers_for_3D_Medical_Image_Segmentation_WACV_2022_paper.pdf) model with following parameters:
 ```python
 model = UNETR(
     in_channels=1,
