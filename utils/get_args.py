@@ -78,28 +78,17 @@ def get_args():
 
 
     # attack related arguments
-    parser.add_argument("--attack_name",  default=None, type=str,  help="name of adversarial attack")
+    parser.add_argument("--attack_name",  default="vafa-3d", type=str,  help="name of adversarial attack")
     parser.add_argument("--steps", default=20, type=int,  help="number of iterations to generate adversarial example")
     parser.add_argument("--alpha", default=0.01, type=float,  help="step size for update during attack")
     parser.add_argument("--eps", default=4, type=float,  help="perturbation budget on the scale of [0,255]")
     parser.add_argument("--std", default=4, type=float,  help="standard deviation for gaussian noise on the scale of [0,255]")
     parser.add_argument("--targeted", action='store_true',  help="if targeted attack is to be chosen")
 
-    # vafa attack related arguments
     parser.add_argument("--q_max", default=20, type=float,  help="upper bound on quantization table values in VAFA attack")
-
-    # ssa attack related arguments
-    parser.add_argument("--num_spectrum_augs", default=10, type=int,  help="number of spectrum augmentations in SSA attack")
-
- 
-    # advdrop related arguments
-    parser.add_argument("--rho", default=0.2, type=float,  help="budget of freq-domain perturbation matrix")
     parser.add_argument("--use_ssim_loss", action='store_true',  help="if SSIM loss is to be used in adversarial loss")
-    parser.add_argument("--lambda_dice", default=0.01, type=float,  help="lambda for adversarial dice loss")
-    parser.add_argument("--lambda_ssim", default=1, type=float,  help="lambda for ssim loss")
     parser.add_argument("--block_size",  default=[8,8,8] , type=int, nargs="+",  help="DCT block size")
-    parser.add_argument("--freq_band",  default='all', type=str, choices=['all', 'low', 'middle', 'high'], help="which frequency band should be perturbed in SPA")
-
+ 
 
     # different modes
     parser.add_argument("--gen_train_adv_mode", action='store_true',  help="if adversarial versions of train samples are to be generated")
