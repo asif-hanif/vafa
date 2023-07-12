@@ -62,8 +62,8 @@ model = UNETR(
     hidden_size=768,
     mlp_dim=3072,
     num_heads=12,
-    pos_embed=perceptron,
-    norm_name=instance,
+    pos_embed="perceptron",
+    norm_name="instance",
     conv_block=True,
     res_block=True,
     dropout_rate=0.0)
@@ -87,13 +87,13 @@ For VAFA attack on each 2D slice of volumetric image, use : `--attack_name vafa-
 
 Use following arguments when launching pixel/voxel domain attacks:
 
-PGD:&nbsp;&nbsp;&nbsp;        `--attack_name pgd --steps 20 --eps 4 --alpha 0.01`
+[PGD](https://adversarial-attacks-pytorch.readthedocs.io/en/latest/attacks.html#module-torchattacks.attacks.pgd):&nbsp;&nbsp;&nbsp;        `--attack_name pgd --steps 20 --eps 4 --alpha 0.01`
 
-FGSM:             `--attack_name fgsm --steps 20 --eps 4 --alpha 0.01`
+[FGSM](https://adversarial-attacks-pytorch.readthedocs.io/en/latest/attacks.html#module-torchattacks.attacks.fgsm):             `--attack_name fgsm --steps 20 --eps 4 --alpha 0.01`
 
-BIM:&nbsp;&nbsp;&nbsp;        `--attack_name bim --steps 20 --eps 4 --alpha 0.01`
+[BIM](https://adversarial-attacks-pytorch.readthedocs.io/en/latest/attacks.html#module-torchattacks.attacks.bim):&nbsp;&nbsp;&nbsp;        `--attack_name bim --steps 20 --eps 4 --alpha 0.01`
 
-GN:&nbsp;&nbsp;&nbsp;&nbsp;   `--attack_name gn --steps 20 --eps 4 --alpha 0.01 --std 4`
+[GN](https://adversarial-attacks-pytorch.readthedocs.io/en/latest/attacks.html#module-torchattacks.attacks.gn):&nbsp;&nbsp;&nbsp;&nbsp;   `--attack_name gn --steps 20 --eps 4 --alpha 0.01 --std 4`
 
 ## Lanuch Adversarial Training (VAFT) of the Model
 ```shell
