@@ -83,6 +83,16 @@ python unetr_gen_train_or_val_adv.py --feature_size=16 --infer_overlap=0.5 \
 ```
 If adversarial images are not intended to be saved, use `--debugging` argument.
 
+Use following arguments when launching pixel/voxel domain attacks:
+
+PGD:&nbsp;&nbsp;&nbsp;        `--attack_name pgd --steps 20 --eps 4 --alpha 0.01`
+
+FGSM:             `--attack_name fgsm --steps 20 --eps 4 --alpha 0.01`
+
+BIM:&nbsp;&nbsp;&nbsp;        `--attack_name bim --steps 20 --eps 4 --alpha 0.01`
+
+GN:&nbsp;&nbsp;&nbsp;&nbsp;   `--attack_name gn --steps 20 --eps 4 --alpha 0.01 --std 4`
+
 ## Lanuch Adversarial Training (VAFT) of the Model
 ```shell
 python unetr_adv_training.py --feature_size=16 --batch_size=4 --optim_lr=1e-4 --lrschedule=warmup_cosine --infer_overlap=0.5 \
