@@ -36,6 +36,9 @@ conda activate vafa
 pip install -r requirements.txt
 ```
 
+## VAFA Attack
+Code of VAFA attack can be accessed in [here](attacks/vafa/vafa.py)
+
 ## Datatset
 We follow the same dataset preprocessing as in [nnFormer](https://github.com/282857341/nnFormer). We conducted experiments on two datasets: Synapse, ACDC
 
