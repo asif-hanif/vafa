@@ -78,12 +78,8 @@ python unetr_gen_train_or_val_adv.py --feature_size=16 --infer_overlap=0.5 \
 --use_pretrained \
 --pretrained_path=<PATH_OF_PRETRAINED_MODEL>  \
 --gen_val_adv_mode \
---attack_name vafa \
---q_max 20 \
---steps 20 \
---block_size 32 32 32 \
---use_ssim_loss \
---save_adv_images_dir=<PATH_TO_SAVE_ADV_TEST_IMAGES> 
+--save_adv_images_dir=<PATH_TO_SAVE_ADV_TEST_IMAGES>
+--attack_name vafa-3d --q_max 20 --steps 20 --block_size 32 32 32 --use_ssim_loss
 ```
 If adversarial images are not intended to be saved, use `--debugging` argument.
 
