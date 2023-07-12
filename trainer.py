@@ -24,15 +24,15 @@ from torch.cuda.amp import GradScaler, autocast
 from utils.utils import distributed_all_gather
 
 
-
-import spa
+from attacks import vafa
 from attacks.pgd import projected_gradient_descent_l_inf as pgd_l_inf
 from attacks.fgsm import fast_gradient_sign_method_l_inf as fgsm_l_inf
 from attacks.bim import basic_iterative_method_l_inf as bim_l_inf
 from attacks.gn import gaussain_noise as gn
 from attacks.utils import get_target_labels
 
-from  spa.compression import block_splitting_3d, block_splitting_2d 
+
+# from  spa.compression import block_splitting_3d, block_splitting_2d 
 import torch_dct as dct_pack
 
 from monai.data import decollate_batch
@@ -126,9 +126,12 @@ def train_epoch(model, loader, optimizer, scaler, epoch, loss_func, args):
                 at_images = bim_l_inf(model, images, labels, loss_fn, steps=args.steps, alpha=args.alpha, eps=args.eps/255, device=device, targeted=args.targeted, verbose=False)
             elif args.attack_name=="gn":
                 at_images = gn(images, std=args.std/255, device=device, verbose=False)
-            elif args.attack_name == "spa":
-                SP_Attack = spa.SPA(model, loss_fn, batch_size=images.shape[0], block_size=args.block_size, steps=args.steps, targeted=args.targeted, rho=args.rho, lambda_dice=args.lambda_dice, use_ssim_loss=args.use_ssim_loss, lambda_ssim=args.lambda_ssim, verbose=False)    
-                at_images, at_labels, perturbation = SP_Attack(images, labels)
+            elif args.attack_name=="vafa-2d":
+                VAFA_2D_Attack = vafa.VAFA_2D(model, loss_fn, batch_size=images.shape[0], q_max=args.q_max, block_size=args.block_size, verbose=False)
+                at_images, at_labels, q_tables = VAFA_2D_Attack(images, labels)
+            elif args.attack_name=="vafa-3d":
+                VAFA_3D_Attack = vafa.VAFA(model, loss_fn, batch_size=images.shape[0], q_max=args.q_max, block_size=args.block_size, use_ssim_loss=args.use_ssim_loss, verbose=False)
+                at_images, at_labels, q_tables = VAFA_3D_Attack(images, labels)  
             else:
                 raise ValueError(f"Attack '{args.attack_name}' is not implemented.")
 
@@ -215,9 +218,12 @@ def train_epoch_freq_reg(model, loader, optimizer, scaler, epoch, loss_func, arg
             at_images = bim_l_inf(model, images, labels, loss_fn, steps=args.steps, alpha=args.alpha, eps=args.eps/255, device=device, targeted=args.targeted, verbose=False)
         elif args.attack_name=="gn":
             at_images = gn(images, std=args.std/255, device=device, verbose=False)
-        elif args.attack_name == "spa":
-            SP_Attack = spa.SPA(model, loss_fn, batch_size=images.shape[0], block_size=args.block_size, steps=args.steps, targeted=args.targeted, rho=args.rho, lambda_dice=args.lambda_dice, use_ssim_loss=args.use_ssim_loss, lambda_ssim=args.lambda_ssim, verbose=False)    
-            at_images, at_labels, perturbation = SP_Attack(images, labels)
+        elif args.attack_name=="vafa-2d":
+            VAFA_2D_Attack = vafa.VAFA_2D(model, loss_fn, batch_size=images.shape[0], q_max=args.q_max, block_size=args.block_size, verbose=False)
+            at_images, at_labels, q_tables = VAFA_2D_Attack(images, labels)
+        elif args.attack_name=="vafa-3d":
+            VAFA_3D_Attack = vafa.VAFA(model, loss_fn, batch_size=images.shape[0], q_max=args.q_max, block_size=args.block_size, use_ssim_loss=args.use_ssim_loss, verbose=False)
+            at_images, at_labels, q_tables = VAFA_3D_Attack(images, labels)  
         else:
             raise ValueError(f"Attack '{args.attack_name}' is not implemented.")
 

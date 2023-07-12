@@ -30,8 +30,7 @@ from utils.utils import print_attack_info
 from utils.utils import get_folder_name
 
 
-import spa
-import vafa
+from attacks import vafa
 from attacks.pgd import projected_gradient_descent_l_inf as pgd_l_inf
 from attacks.fgsm import fast_gradient_sign_method_l_inf as fgsm_l_inf
 from attacks.bim import basic_iterative_method_l_inf as bim_l_inf
@@ -95,7 +94,6 @@ def clip_by_tensor(t, t_min, t_max):
 
 
 
-
 def main():
     
     now_start = datetime.now() 
@@ -132,7 +130,7 @@ def main():
 
 
     if args.dataset == 'btcv':
-        val_loader = get_loader_btcv(args)
+        data_loader = get_loader_btcv(args)
     else: 
         raise ValueError(f"Unsupported Dataset: '{args.dataset}' .")
 
@@ -154,8 +152,7 @@ def main():
             norm_name=args.norm_name,
             conv_block=True,
             res_block=True,
-            dropout_rate=args.dropout_rate,
-            spatial_dims=args.spatial_dims)
+            dropout_rate=args.dropout_rate)
     else:
         raise ValueError("Unsupported model " + str(args.model_name))
     
@@ -190,13 +187,12 @@ def main():
     hd95_organ_dict_clean = {}
     hd95_organ_dict_adv   = {}
 
-    psnr_dict = {}
-    ssim_dict = {}
+
     lpips_alex_dict = {}
 
     voxel_success_rate_list    = []
 
-    for i, batch in enumerate(val_loader):
+    for i, batch in enumerate(data_loader):
         # if i >0: break
 
         val_inputs, val_labels = (batch["image"].cuda(), batch["label"].cuda())
@@ -211,7 +207,9 @@ def main():
         slices = get_slices(input_shape,roi_size)
 
         print(f'Created {len(slices)} slices of size {roi_size} from input volume of size {input_shape}.')
-        slice_batch_size=6
+        
+        
+        slice_batch_size=6 # number of slices in one batch
 
         adv_val_inputs = torch.zeros(input_shape).to(device)
         # breakpoint()
@@ -240,28 +238,13 @@ def main():
             elif args.attack_name=="bim":
                 at_images = bim_l_inf(model, images, labels, loss_fn, steps=args.steps, alpha=args.alpha, eps=args.eps/255.0, device=device, targeted=args.targeted, verbose=True)
             elif args.attack_name=="gn":
-                at_images = gn(images, std=args.std/255.0, device=device, verbose=True)
-            elif args.attack_name=="dfb":
-                DFB_Attack = spa.DFB(model, loss_fn, batch_size=images.shape[0], block_size=args.block_size, freq_band=args.freq_band, verbose=True)
-                at_images, at_labels = DFB_Attack(images, labels)
-            elif args.attack_name=="dfb-2d":
-                DFB_Attack = spa.DFB_2D(model, loss_fn, batch_size=images.shape[0], block_size=args.block_size, freq_band=args.freq_band, verbose=True)
-                at_images, at_labels = DFB_Attack(images, labels)
-            elif args.attack_name=="ssa-2d":
-                SSA_2D_Attack = vafa.SSA_2D(model, loss_fn, batch_size=images.shape[0], steps=args.steps, rho=args.rho, eps=args.eps/255.0, num_spectrum_augs=args.num_spectrum_augs, block_size=args.block_size,  verbose=True)
-                at_images, at_labels = SSA_2D_Attack(images, labels)   
+                at_images = gn(images, std=args.std/255.0, device=device, verbose=True)  
             elif args.attack_name=="vafa-2d":
                 VAFA_2D_Attack = vafa.VAFA_2D(model, loss_fn, batch_size=images.shape[0], q_max=args.q_max, block_size=args.block_size, verbose=True)
                 at_images, at_labels, q_tables = VAFA_2D_Attack(images, labels)
             elif args.attack_name=="vafa-3d":
                 VAFA_3D_Attack = vafa.VAFA(model, loss_fn, batch_size=images.shape[0], q_max=args.q_max, block_size=args.block_size, use_ssim_loss=args.use_ssim_loss, verbose=True)
                 at_images, at_labels, q_tables = VAFA_3D_Attack(images, labels)      
-            elif args.attack_name == "spa-2d":
-                SP_Attack = spa.SPA_2D(model, loss_fn, batch_size=images.shape[0], block_size=args.block_size, steps=args.steps, targeted=args.targeted, rho=args.rho, lambda_dice=args.lambda_dice, use_ssim_loss=args.use_ssim_loss, lambda_ssim=args.lambda_ssim, freq_band=args.freq_band, verbose=True)    
-                at_images, at_labels, perturbation = SP_Attack(images, labels)
-            elif args.attack_name == "spa":
-                SP_Attack = spa.SPA(model, loss_fn, batch_size=images.shape[0], block_size=args.block_size, steps=args.steps, targeted=args.targeted, rho=args.rho, lambda_dice=args.lambda_dice, use_ssim_loss=args.use_ssim_loss, lambda_ssim=args.lambda_ssim, freq_band=args.freq_band, verbose=True)    
-                at_images, at_labels, perturbation = SP_Attack(images, labels)
             else:
                 raise ValueError(f"Attack '{args.attack_name}' is not implemented.")
 
@@ -315,9 +298,7 @@ def main():
             hd95_organ_dict_adv[img_name] = hd95_score_adv[0].tolist()
 
  
-            psnr_dict[img_name] = psnr(val_inputs[0,0].cpu().numpy()*255, adv_val_inputs[0,0].cpu().numpy()*255, data_range=255)
-            ssim_dict[img_name] = ssim(val_inputs[0,0].cpu().numpy()*255, adv_val_inputs[0,0].cpu().numpy()*255, channel_axis=2, data_range=255)
-            
+          
             img = val_inputs[0,0].permute(2,0,1).unsqueeze(1).float().cpu()
             adv = adv_val_inputs[0,0].permute(2,0,1).unsqueeze(1).float().cpu()
             lpips_alex_dict[img_name] = 1-loss_fn_alex((2*img-1),(2*adv-1)).view(-1,).mean().item()
@@ -330,11 +311,12 @@ def main():
             print("Adv Attack Success Rate (voxel): {}  (%)".format(img_name, round(voxel_suc_rate*100,3)))
             print(f"Mean Organ Dice (Clean): {round(np.nanmean(dice_organ_dict_clean[img_name])*100,2):.2f} (%)        Mean Organ HD95 (Clean): {round(np.nanmean(hd95_organ_dict_clean[img_name]),2)}")                
             print(f"Mean Organ Dice (Adv)  : {round(np.nanmean(dice_organ_dict_adv[img_name])*100,2):.2f} (%)        Mean Organ HD95 (Adv)  : {round(np.nanmean(hd95_organ_dict_adv[img_name]),2)}")
-            print(f"PSNR: {round(psnr_dict[img_name],2)}\nSSIM: {f'{ssim_dict[img_name]:0.04f}'}\nLPIPS_Alex: {round(lpips_alex_dict[img_name],4)}")
+            print(f"LPIPS_Alex: {round(lpips_alex_dict[img_name],4)}")
 
 
 
             print('\n\n')
+
 
         # breakpoint()
         # img_clean = nib.Nifti1Image( (val_inputs[0,0].cpu().numpy()*255).astype(np.uint8), np.eye(4))
@@ -346,6 +328,7 @@ def main():
         # lables_clean.to_filename("/home/asif.hanif/clean_"+lbl_name)
         # img_clean.to_filename("/home/asif.hanif/clean_"+img_name)
         # labels_adv.to_filename("/home/asif.hanif/adv_"+lbl_name)
+
 
         ## saving images
         if not args.debugging:
@@ -410,16 +393,11 @@ def main():
     print(f" Overall Mean HD95 (Adv)  : {round(np.mean(hd95_adv_all),3):0.3f}" )
 
 
-    psnr_all = []
-    ssim_all   = []
+
     lpips_alex_all = []
-    for key in psnr_dict.keys(): psnr_all.append(psnr_dict[key])
-    for key in ssim_dict.keys(): ssim_all.append(ssim_dict[key])
     for key in lpips_alex_dict.keys(): lpips_alex_all.append(lpips_alex_dict[key])
 
     print('\n')
-    print(f" Overall PSNR      : {round(np.mean(psnr_all),2):0.2f}")
-    print(f" Overall SSIM      : {round(np.mean(ssim_all),4):0.4f}")
     print(f" Overall LPIPS_Alex: {round(np.mean(lpips_alex_all),4):0.4f}")
 
 

@@ -24,8 +24,7 @@ import torch.nn.parallel
 import torch.utils.data.distributed
 
 
-# from networks.unetr import UNETR
-from monai.networks.nets import UNet, UNETR, SwinUNETR
+from unetr import UNETR
 from optimizers.lr_scheduler import LinearWarmupCosineAnnealingLR
 from trainer import run_training
 
@@ -126,9 +125,6 @@ def main_worker(gpu, args):
     if args.dataset == 'btcv':
         print("\nDataset = BTCV\n")
         loader = get_loader_btcv(args)
-    elif args.dataset == 'acdc':
-        print("\nDataset = ACDC\n")
-        loader = get_loader_acdc(args)
     else: 
         raise ValueError(f"Unsupported Dataset: '{args.dataset}' .")
 
@@ -141,19 +137,7 @@ def main_worker(gpu, args):
     inf_size = [args.roi_x, args.roi_y, args.roi_z]
 
 
-    if args.model_name == "unet":
-        print(f"\nModel = {args.model_name.upper()} \n")
-
-        model = UNet(spatial_dims=3,
-                     in_channels=args.in_channels,
-                     out_channels=args.out_channels,
-                     channels=(32, 64, 128, 256, 512),
-                     strides=(2, 2, 2, 2),
-                     num_res_units=2)
-        
-    elif args.model_name == "unet-r":
-        print(f"\nModel = {args.model_name.upper()} \n")
-
+    if args.model_name == "unet-r":
         model = UNETR(
             in_channels=args.in_channels,
             out_channels=args.out_channels,
@@ -166,25 +150,10 @@ def main_worker(gpu, args):
             norm_name=args.norm_name,
             conv_block=True,
             res_block=True,
-            dropout_rate=args.dropout_rate,
-            spatial_dims=args.spatial_dims)
-        
-    elif args.model_name == 'swin-unetr':
-         print(f"\nModel = {args.model_name.upper()} \n")
-         
-         model = SwinUNETR(
-            img_size=(args.roi_x, args.roi_y, args.roi_z),
-            in_channels=args.in_channels,
-            out_channels=args.out_channels,
-            feature_size=args.feature_size,
-            drop_rate=0.0,
-            attn_drop_rate=0.0,
-            dropout_path_rate=args.dropout_path_rate,
-            use_checkpoint=args.use_checkpoint)
-         
+            dropout_rate=args.dropout_rate)
     else:
         raise ValueError("Unsupported model " + str(args.model_name))
-
+    
 
     start_epoch = 0
     best_acc = 0

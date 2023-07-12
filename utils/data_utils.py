@@ -252,7 +252,30 @@ def get_loader_acdc(args):
         ]
     )
 
-    if args.test_mode:
+
+    if args.gen_train_adv_mode:
+        print('Loader: Mode = Generate Train-Adv Images ...')
+        datalist = load_decathlon_datalist(datalist_json, True, "training", base_dir=data_dir)
+        if args.use_normal_dataset:
+            train_ds = data.Dataset(data=datalist, transform=val_transform)
+        else:
+            train_ds = data.CacheDataset(data=datalist, transform=val_transform, cache_num=24, cache_rate=1.0, num_workers=args.workers)
+        
+        train_sampler = Sampler(train_ds) if args.distributed else None
+        train_loader = data.DataLoader(
+            train_ds,
+            batch_size=args.batch_size,
+            shuffle=(train_sampler is None),
+            num_workers=args.workers,
+            sampler=train_sampler,
+            pin_memory=True,
+            persistent_workers=True,
+        )
+
+        loader = train_loader
+
+    elif args.test_mode or args.gen_val_adv_mode:
+        print('\nLoader: Mode = Clean Validation Files ...')
         test_files = load_decathlon_datalist(datalist_json, True, "validation", base_dir=data_dir)
         test_ds = data.Dataset(data=test_files, transform=val_transform)
         test_sampler = Sampler(test_ds, shuffle=False) if args.distributed else None
@@ -266,7 +289,9 @@ def get_loader_acdc(args):
             persistent_workers=True,
         )
         loader = test_loader
+        
     else:
+        print('\nLoader: Mode = Clean Train+Test Files ...')
         datalist = load_decathlon_datalist(datalist_json, True, "training", base_dir=data_dir)
         if args.use_normal_dataset:
             train_ds = data.Dataset(data=datalist, transform=train_transform)

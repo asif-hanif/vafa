@@ -18,8 +18,7 @@ from datetime import datetime
 
 import numpy as np
 import torch
-# from networks.unetr import UNETR
-from monai.networks.nets import UNet, UNETR, SwinUNETR
+from unetr import UNETR
 
 
 
@@ -31,7 +30,7 @@ from utils.utils import print_attack_info
 from utils.utils import get_folder_name
 
 
-import spa
+from attacks import vafa
 from attacks.pgd import projected_gradient_descent_l_inf as pgd_l_inf
 from attacks.fgsm import fast_gradient_sign_method_l_inf as fgsm_l_inf
 from attacks.bim import basic_iterative_method_l_inf as bim_l_inf
@@ -100,9 +99,7 @@ def main():
     adv_imgs_dir_ext = os.path.join(args.adv_images_dir, ""  if args.no_sub_dir_adv_images else folder_name)
 
     if args.dataset == 'btcv':
-        val_loader = get_loader_btcv(args)
-    elif args.dataset == 'acdc':
-        val_loader = get_loader_acdc(args)
+        data_loader = get_loader_btcv(args)
     else: 
         raise ValueError(f"Unsupported Dataset: '{args.dataset}' .")
 
@@ -111,16 +108,7 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
 
-    if args.model_name == "unet":
-        model = UNet(spatial_dims=3,
-                     in_channels=args.in_channels,
-                     out_channels=args.out_channels,
-                     channels=(32, 64, 128, 256, 512),
-                     strides=(2, 2, 2, 2),
-                     num_res_units=2)
-
-     
-    elif args.model_name == "unet-r":
+    if args.model_name == "unet-r":
         model = UNETR(
             in_channels=args.in_channels,
             out_channels=args.out_channels,
@@ -133,25 +121,11 @@ def main():
             norm_name=args.norm_name,
             conv_block=True,
             res_block=True,
-            dropout_rate=args.dropout_rate,
-            spatial_dims=args.spatial_dims)
-        
-    elif args.model_name == 'swin-unetr':
-        model = SwinUNETR(
-            img_size=(args.roi_x, args.roi_y, args.roi_z),
-            in_channels=args.in_channels,
-            out_channels=args.out_channels,
-            feature_size=args.feature_size,
-            drop_rate=0.0,
-            attn_drop_rate=0.0,
-            dropout_path_rate=args.dropout_path_rate,
-            use_checkpoint=args.use_checkpoint,
-        )
-         
+            dropout_rate=args.dropout_rate)
     else:
         raise ValueError("Unsupported model " + str(args.model_name))
     
-
+    
         
     pretrained_path  = args.pretrained_path
 
@@ -179,14 +153,12 @@ def main():
     hd95_organ_dict_clean = {}
     hd95_organ_dict_adv   = {}
 
-    psnr_dict = {}
-    ssim_dict = {}
     lpips_alex_dict = {}
 
     voxel_success_rate_list    = []
     print("\n\n")
 
-    for i, batch in enumerate(val_loader):
+    for i, batch in enumerate(data_loader):
         # if i >0: break
 
         # get clean images
@@ -250,9 +222,6 @@ def main():
             hd95_organ_dict_adv[img_name] = hd95_score_adv[0].tolist()
 
  
-            psnr_dict[img_name] = psnr(val_inputs[0,0].cpu().numpy()*255, adv_val_inputs[0,0].cpu().numpy()*255, data_range=255)
-            ssim_dict[img_name] = ssim(val_inputs[0,0].cpu().numpy()*255, adv_val_inputs[0,0].cpu().numpy()*255, channel_axis=2, data_range=255)
-            
             img = val_inputs[0,0].permute(2,0,1).unsqueeze(1).float().cpu()
             adv = adv_val_inputs[0,0].permute(2,0,1).unsqueeze(1).float().cpu()
             lpips_alex_dict[img_name] = 1-loss_fn_alex((2*img-1),(2*adv-1)).view(-1,).mean().item()
@@ -264,7 +233,7 @@ def main():
             print(f"Adv Attack Success Rate (voxel): {round(voxel_suc_rate*100,3)}  (%)")
             print(f"Mean Organ Dice (Clean): {round(np.nanmean(dice_organ_dict_clean[img_name])*100,2):.2f} (%)        Mean Organ HD95 (Clean): {round(np.nanmean(hd95_organ_dict_clean[img_name]),2)}")                
             print(f"Mean Organ Dice (Adv)  : {round(np.nanmean(dice_organ_dict_adv[img_name])*100,2):.2f} (%)        Mean Organ HD95 (Adv)  : {round(np.nanmean(hd95_organ_dict_adv[img_name]),2)}")
-            print(f"PSNR: {round(psnr_dict[img_name],2)}\nSSIM: {f'{ssim_dict[img_name]:0.04f}'}\nLPIPS_Alex: {round(lpips_alex_dict[img_name],4)}")
+            print(f"LPIPS_Alex: {round(lpips_alex_dict[img_name],4)}")
 
             print("\n\n")
 
@@ -302,16 +271,11 @@ def main():
     print(f" Overall Mean HD95 (Adv)  : {round(np.mean(hd95_adv_all),3):0.3f}" )
 
 
-    psnr_all = []
-    ssim_all   = []
+ 
     lpips_alex_all = []
-    for key in psnr_dict.keys(): psnr_all.append(psnr_dict[key])
-    for key in ssim_dict.keys(): ssim_all.append(ssim_dict[key])
     for key in lpips_alex_dict.keys(): lpips_alex_all.append(lpips_alex_dict[key])
 
     print('\n')
-    print(f" Overall PSNR      : {round(np.mean(psnr_all),2):0.2f}")
-    print(f" Overall SSIM      : {round(np.mean(ssim_all),4):0.4f}")
     print(f" Overall LPIPS_Alex: {round(np.mean(lpips_alex_all),4):0.4f}")
 
 
