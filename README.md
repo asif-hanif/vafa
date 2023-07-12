@@ -83,6 +83,8 @@ python unetr_gen_train_or_val_adv.py --feature_size=16 --infer_overlap=0.5 \
 ```
 If adversarial images are not intended to be saved, use `--debugging` argument.
 
+For VAFA attack on each 2D slice of volumetric image, use : `--attack_name vafa-2d --q_max 20 --steps 20 --block_size 32 32 --use_ssim_loss`
+
 Use following arguments when launching pixel/voxel domain attacks:
 
 PGD:&nbsp;&nbsp;&nbsp;        `--attack_name pgd --steps 20 --eps 4 --alpha 0.01`
