@@ -8,7 +8,7 @@ import torch.nn as nn
 
 
 
-# Differentiable Rounding Function
+# Differentiable Rounding Function (Source:  https://github.com/RjDuan/AdvDrop/blob/main/utils.py)
 def phi_diff(x, alpha):
     
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -29,8 +29,8 @@ def phi_diff(x, alpha):
 
 
 
-
-def diff_round(x):
+# (Source:  https://github.com/RjDuan/AdvDrop/blob/main/utils.py)
+def diff_round(x): 
     """ Differentiable rounding function
     Input:
         x(tensor)

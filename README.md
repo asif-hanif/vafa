@@ -81,16 +81,16 @@ model = UNETR(
 
 ## Launch VAFA Attack on the Model
 ```shell
-python unetr_gen_train_or_val_adv.py --feature_size=16 --infer_overlap=0.5 \
+python generate_train_or_val_adv.py --feature_size=16 --infer_overlap=0.5 \
 --data_dir=<PATH_OF_DATASET> \
---json_list=dataset_synapse.json \
+--json_list=dataset_synapse_18_12.json \
 --use_pretrained \
 --pretrained_path=<PATH_OF_PRETRAINED_MODEL>  \
 --gen_val_adv_mode \
---save_adv_images_dir=<PATH_TO_SAVE_ADV_TEST_IMAGES>
+--save_adv_images_dir=<PATH_TO_SAVE_ADV_TEST_IMAGES> \
 --attack_name vafa-3d --q_max 20 --steps 20 --block_size 32 32 32 --use_ssim_loss
 ```
-If adversarial images are not intended to be saved, use `--debugging` argument.
+If adversarial images are not intended to be saved, use `--debugging` argument. If `--use_ssim_loss` is not mentioned, SSIM loss will not be used in the adversarial objective (Eq. 2).
 
 For VAFA attack on each 2D slice of volumetric image, use : `--attack_name vafa-2d --q_max 20 --steps 20 --block_size 32 32 --use_ssim_loss`
 
@@ -106,15 +106,16 @@ Use following arguments when launching pixel/voxel domain attacks:
 
 ## Lanuch Adversarial Training (VAFT) of the Model
 ```shell
-python unetr_adv_training.py --feature_size=16 --batch_size=4 --optim_lr=1e-4 --lrschedule=warmup_cosine --infer_overlap=0.5 \
+python normal_or_adv_training.py --feature_size=16 --batch_size=4 --optim_lr=1e-4 --lrschedule=warmup_cosine --infer_overlap=0.5 \
 --save_checkpoint \
 --data_dir=<PATH_OF_DATASET> \
---json_list=dataset_synapse.json \
+--json_list=dataset_synapse_18_12.json \
 --use_pretrained \
 --pretrained_path=<PATH_OF_PRETRAINED_MODEL>  \
 --adv_training_freq_reg_mode \
---attack_name vafa \
---q_max 20 --steps 20 --block_size 32 32 32 --use_ssim_loss \
---save_model_dir=<PATH_TO__SAVE_ADVERSARIALLY_TRAINED_MODEL> \
+--attack_name vafa-3d --q_max 20 --steps 20 --block_size 32 32 32 --use_ssim_loss \
+--save_model_dir=<PATH_TO_SAVE_ADVERSARIALLY_TRAINED_MODEL> \
 --val_every 1
 ```
+
+Arugument `--adv_training_freq_reg_mode` performs adversarial training with dice loss on clean images, adversarial images and frequency regularization term (Eq. 4) in the objective function (Eq. 3). For vanilla adversarial training (i.e. dice loss on adversarial images), use `--adv_training_mode`. For normal training of the model, do not mention these two arguments. 
