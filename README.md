@@ -164,3 +164,22 @@ python evaluate_attack_performance.py --model_name unet-r --in_channels 1 --out_
 ```
 
 Attack related arguments are used to automaticaaly find the sub-folder containing adversarial images. Sub-folder should be present in parent folder path specified by `--adv_images_dir` argument.  If `--no_sub_dir_adv_images` is mentioned, sub-folder will not be searched and images are assumed to be present directly in the parent folder path specified by `--adv_images_dir` argument. Structure of dataset folder should be same as specified in [Datatset](##dataset) section.
+
+
+## Citation
+If you use our work, please consider citing:
+```bibtex
+    @inproceedings{
+}
+```
+
+<hr />
+
+## Contact
+Should you have any question, please create an issue on this repository or contact at **asif.hanif@mbzuai.ac.ae**
+
+<hr />
+
+
+## Our Related Works
+- To be announced soon
