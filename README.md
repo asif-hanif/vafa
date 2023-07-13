@@ -37,7 +37,7 @@ pip install -r requirements.txt
 ```
 
 ## VAFA Attack
-Code of VAFA attack can be accessed in [here](attacks/vafa/vafa.py)
+Code of VAFA attack can be accessed in [here](attacks/vafa/vafa.py).
 
 ## Datatset
 We follow the same dataset preprocessing as in [nnFormer](https://github.com/282857341/nnFormer). We conducted experiments on two datasets: Synapse, ACDC
@@ -58,7 +58,7 @@ DATASET_SYNAPSE/
       ├── ...  
   ├── dataset_synapse_18_12.json
  ```
-File `dataset_synapse_18_12.json` contains train-test split (created from train files) of Synapse datatset. There are 18 train images and 12 test images. File can be accessed here. 
+File `dataset_synapse_18_12.json` contains train-val split (created from train files) of Synapse datatset. There are 18 train images and 12 validation images. File `dataset_synapse_18_12.json` can be accessed [here](miscellaneous/dataset_synapse_18_12.json). Place this file in datatset parent folder. 
 
 ## Model
 We use [UNETR](https://openaccess.thecvf.com/content/WACV2022/papers/Hatamizadeh_UNETR_Transformers_for_3D_Medical_Image_Segmentation_WACV_2022_paper.pdf) model with following parameters:
