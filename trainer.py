@@ -32,7 +32,7 @@ from attacks.gn import gaussain_noise as gn
 from attacks.utils import get_target_labels
 
 
-# from  spa.compression import block_splitting_3d, block_splitting_2d 
+from attacks.vafa.compression import block_splitting_3d, block_splitting_2d 
 import torch_dct as dct_pack
 
 from monai.data import decollate_batch

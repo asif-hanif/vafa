@@ -40,24 +40,25 @@ pip install -r requirements.txt
 Code of VAFA attack can be accessed in [here](attacks/vafa/vafa.py).
 
 ## Datatset
-We follow the same dataset preprocessing as in [nnFormer](https://github.com/282857341/nnFormer). We conducted experiments on two datasets: Synapse, ACDC
+We conducted experiments on two volumetric medical image segmentation datasets: [Synapse](https://www.synapse.org/#!Synapse:syn3193805/wiki/217789), ACDC. Synapse contains 14 classes (including background) and [ACDC](https://www.creatis.insa-lyon.fr/Challenge/acdc/databases.html) contains 4 classes (including background). We follow the same dataset preprocessing as in [nnFormer](https://github.com/282857341/nnFormer).  
 
 The dataset folders for Synapse should be organized as follows: 
 
 ```
 DATASET_SYNAPSE/
-  ├── imagesTr/
-      ├── img0001.nii.gz
-      ├── img0002.nii.gz
-      ├── img0003.nii.gz
-      ├── ...  
-  ├── labelsTr/
-      ├── label0001.nii.gz
-      ├── label0002.nii.gz
-      ├── label0003.nii.gz
-      ├── ...  
-  ├── dataset_synapse_18_12.json
+    ├── imagesTr/
+        ├── img0001.nii.gz
+        ├── img0002.nii.gz
+        ├── img0003.nii.gz
+        ├── ...  
+    ├── labelsTr/
+        ├── label0001.nii.gz
+        ├── label0002.nii.gz
+        ├── label0003.nii.gz
+        ├── ...  
+    ├── dataset_synapse_18_12.json
  ```
+
 File `dataset_synapse_18_12.json` contains train-val split (created from train files) of Synapse datatset. There are 18 train images and 12 validation images. File `dataset_synapse_18_12.json` can be accessed [here](miscellaneous/dataset_synapse_18_12.json). Place this file in datatset parent folder. 
 
 ## Model
@@ -78,6 +79,9 @@ model = UNETR(
     dropout_rate=0.0)
 
 ```
+
+We also used [UNETR++](https://arxiv.org/abs/2212.04497) in our experiments but its code is not in a presentable form. Therefore, we are not including support for UNETR++ model in this repository. 
+
 
 ## Launch VAFA Attack on the Model
 ```shell
@@ -106,16 +110,16 @@ Use following arguments when launching pixel/voxel domain attacks:
 
 ## Lanuch Adversarial Training (VAFT) of the Model
 ```shell
-python normal_or_adv_training.py --feature_size=16 --batch_size=4 --optim_lr=1e-4 --lrschedule=warmup_cosine --infer_overlap=0.5 \
+python normal_or_adv_training.py --model_name unet-r --in_channels 1 --out_channel 14 --feature_size=16 --batch_size=3 --max_epochs 5000 --optim_lr=1e-4 --lrschedule=warmup_cosine --infer_overlap=0.5 \
 --save_checkpoint \
---data_dir=<PATH_OF_DATASET> \
+--dataset btcv --data_dir=<PATH_OF_DATASET> \
 --json_list=dataset_synapse_18_12.json \
 --use_pretrained \
 --pretrained_path=<PATH_OF_PRETRAINED_MODEL>  \
---adv_training_freq_reg_mode \
+--adv_training_mode --freq_reg_mode \
 --attack_name vafa-3d --q_max 20 --steps 20 --block_size 32 32 32 --use_ssim_loss \
 --save_model_dir=<PATH_TO_SAVE_ADVERSARIALLY_TRAINED_MODEL> \
---val_every 1
+--val_every 15
 ```
 
-Arugument `--adv_training_freq_reg_mode` performs adversarial training with dice loss on clean images, adversarial images and frequency regularization term (Eq. 4) in the objective function (Eq. 3). For vanilla adversarial training (i.e. dice loss on adversarial images), use `--adv_training_mode`. For normal training of the model, do not mention these two arguments. 
+Arugument `--adv_training_mode` in conjunction with `--freq_reg_mode` performs adversarial training with dice loss on clean images, adversarial images and frequency regularization term (Eq. 4) in the objective function (Eq. 3). For vanilla adversarial training (i.e. dice loss on adversarial images), use only `--adv_training_mode`. For normal training of the model, do not mention these two arguments. 
