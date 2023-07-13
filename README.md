@@ -89,20 +89,21 @@ Clean and adversarially trained (under VAFA attack) [UNETR](https://openaccess.t
 |:-- |:-- |:-- | 
 |Synapse | Clean UNETR | [Download](https://mbzuaiac-my.sharepoint.com/:u:/g/personal/asif_hanif_mbzuai_ac_ae/EaaTHPv6MGZGnDdwDYQRO9YBTGE3_87veLEXDG1V4uHjaw?e=XyLc61)|
 |Synapse | Adversarially Trained (under VAFA) UNETR | [Download](https://mbzuaiac-my.sharepoint.com/:u:/g/personal/asif_hanif_mbzuai_ac_ae/EVji-stXEFVChGViXw2se1kBFO1SPR4H1F2FGJKWYR-QLQ?e=tE20Id)|
+|Synapse | Adversarially Trained (under VAFA, without Frequecny Regularization Eq.4 ) UNETR | [Download]()|
 
 
 
 
 ## Launch VAFA Attack on the Model
 ```shell
-python generate_train_or_val_adv.py --feature_size=16 --infer_overlap=0.5 \
---data_dir=<PATH_OF_DATASET> \
+python generate_train_or_val_adv.py --model_name unet-r --feature_size=16 --infer_overlap=0.5 \
+--dataset btcv --data_dir=<PATH_OF_DATASET> \
 --json_list=dataset_synapse_18_12.json \
 --use_pretrained \
 --pretrained_path=<PATH_OF_PRETRAINED_MODEL>  \
 --gen_val_adv_mode \
 --save_adv_images_dir=<PATH_TO_SAVE_ADV_TEST_IMAGES> \
---attack_name vafa-3d --q_max 20 --steps 20 --block_size 32 32 32 --use_ssim_loss
+--attack_name vafa-3d --q_max 20 --steps 20 --block_size 32 32 32 --use_ssim_loss --debugging
 ```
 If adversarial images are not intended to be saved, use `--debugging` argument. If `--use_ssim_loss` is not mentioned, SSIM loss will not be used in the adversarial objective (Eq. 2). If adversarial versions of train images are indeded to be generated, use mention argument `gen_train_adv_mode` instead of `gen_val_adv_mode`
 
@@ -133,3 +134,19 @@ python normal_or_adv_training.py --model_name unet-r --in_channels 1 --out_chann
 ```
 
 Arugument `--adv_training_mode` in conjunction with `--freq_reg_mode` performs adversarial training with dice loss on clean images, adversarial images and frequency regularization term (Eq. 4) in the objective function (Eq. 3). For vanilla adversarial training (i.e. dice loss on adversarial images), use only `--adv_training_mode`. For normal training of the model, do not mention these two arguments. 
+
+
+## Inference on the Model with already saved Adversarial Images
+If adversarial images have already been saved and one wants to do inference on the model using saved adversarial images, use following command:
+
+```shell
+python evaluate_attack_performance.py --model_name unet-r --in_channels 1 --out_channel 14 --feature_size=16 --infer_overlap=0.5 \
+--dataset btcv --data_dir=<PATH_OF_DATASET> \
+--json_list=dataset_synapse_18_12.json \
+--use_pretrained \
+--pretrained_path=<PATH_OF_PRETRAINED_MODEL>  \
+--adv_images_dir=<PATH_OF_SAVED_ADVERSARIAL_IMAGES> \ 
+--attack_name vafa-3d --q_max 20 --steps 20 --block_size 32 32 32 --use_ssim_loss 
+```
+
+Attack related arguments are used to automaticaaly find the sub-folder containing adversarial images. Sub-folder should be present in parent folder path specified by `--adv_images_dir` argument.  If `--no_sub_dir_adv_images` is mentioned, sub-folder will not be searched and images are assumed to be present directly in the parent folder path specified by `--adv_images_dir` argument.
