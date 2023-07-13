@@ -1,5 +1,17 @@
 # Frequency Domain Adversarial Training for Robust Volumetric Medical Segmentation ([MICCAI'23](https://conferences.miccai.org/2023/en/))
 
+
+[Asif Hanif](https://scholar.google.com/citations?user=vTy9Te8AAAAJ&hl=en&authuser=1&oi=sra), 
+[Muzammal Naseer](https://scholar.google.ch/citations?user=tM9xKA8AAAAJ&hl=en),
+[Salman Khan](https://salman-h-khan.github.io),
+[Mubarak Shah](https://scholar.google.com/citations?user=p8gsO3gAAAAJ&hl=en)
+and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&hl=en)
+
+[![paper]()
+[![video]()
+[![slides]()
+
+
 <hr />
 
 | ![main figure](/media/vafa_vaft.png)|
@@ -18,7 +30,7 @@ In the context of 2D natural images, it has been recently observed that frequenc
 > **Volumetric Adversaral Frequency Training (VAFT)**: For *minimization* step, we propose **V**olumetric **A**dversarial **F**requency **T**raining - **VAFT** to obtain a model that is robust to adversarial attacks. In VAFT, we update model parameters on clean and adversarial (obtained via VAFA) samples and further introduce a novel *frequency consistency loss* to keep frequency representation of logits of clean and adversarial samples close to each other for a better accuracy tradeoff.
 <hr />
 
-## Updates :loudspeaker:
+## Updates :rocket:
 - **July 13, 2023** : Released pre-trained clean and adversarially trained (under VAFA attack) [UNETR](https://openaccess.thecvf.com/content/WACV2022/papers/Hatamizadeh_UNETR_Transformers_for_3D_Medical_Image_Segmentation_WACV_2022_paper.pdf) model checkpoints. 
 - **July 10, 2023** : Released code for attacking [UNETR](https://openaccess.thecvf.com/content/WACV2022/papers/Hatamizadeh_UNETR_Transformers_for_3D_Medical_Image_Segmentation_WACV_2022_paper.pdf) model with support for [Synapse](https://www.synapse.org/#!Synapse:syn3193805/wiki/217789) dataset.
 - **May 25, 2023** : Early acceptance in [MICCAI 2023](https://conferences.miccai.org/2023/en/)  &nbsp;&nbsp; :confetti_ball:
@@ -105,7 +117,7 @@ python generate_train_or_val_adv.py --model_name unet-r --feature_size=16 --infe
 --save_adv_images_dir=<PATH_TO_SAVE_ADV_TEST_IMAGES> \
 --attack_name vafa-3d --q_max 20 --steps 20 --block_size 32 32 32 --use_ssim_loss --debugging
 ```
-If adversarial images are not intended to be saved, use `--debugging` argument. If `--use_ssim_loss` is not mentioned, SSIM loss will not be used in the adversarial objective (Eq. 2). If adversarial versions of train images are indeded to be generated, use mention argument `gen_train_adv_mode` instead of `gen_val_adv_mode`
+If adversarial images are not intended to be saved, use `--debugging` argument. If `--use_ssim_loss` is not mentioned, SSIM loss will not be used in the adversarial objective (Eq. 2). If adversarial versions of train images are indeded to be generated, mention argument `gen_train_adv_mode` instead of `gen_val_adv_mode`.
 
 For VAFA attack on each 2D slice of volumetric image, use : `--attack_name vafa-2d --q_max 20 --steps 20 --block_size 32 32 --use_ssim_loss`
 
