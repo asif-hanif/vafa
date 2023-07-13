@@ -19,7 +19,7 @@ In the context of 2D natural images, it has been recently observed that frequenc
 <hr />
 
 ## Updates :loudspeaker:
-- **July 13, 2023** : Released pre-trained clean and adversarially trained (under VAFA attack) [UNETR](https://openaccess.thecvf.com/content/WACV2022/papers/Hatamizadeh_UNETR_Transformers_for_3D_Medical_Image_Segmentation_WACV_2022_paper.pdf) model 
+- **July 13, 2023** : Released pre-trained clean and adversarially trained (under VAFA attack) [UNETR](https://openaccess.thecvf.com/content/WACV2022/papers/Hatamizadeh_UNETR_Transformers_for_3D_Medical_Image_Segmentation_WACV_2022_paper.pdf) model checkpoints. 
 - **July 10, 2023** : Released code for attacking [UNETR](https://openaccess.thecvf.com/content/WACV2022/papers/Hatamizadeh_UNETR_Transformers_for_3D_Medical_Image_Segmentation_WACV_2022_paper.pdf) model with support for [Synapse](https://www.synapse.org/#!Synapse:syn3193805/wiki/217789) dataset.
 - **May 25, 2023** : Early acceptance in [MICCAI 2023](https://conferences.miccai.org/2023/en/)  &nbsp;&nbsp; :confetti_ball:
 
@@ -97,7 +97,7 @@ python generate_train_or_val_adv.py --feature_size=16 --infer_overlap=0.5 \
 --save_adv_images_dir=<PATH_TO_SAVE_ADV_TEST_IMAGES> \
 --attack_name vafa-3d --q_max 20 --steps 20 --block_size 32 32 32 --use_ssim_loss
 ```
-If adversarial images are not intended to be saved, use `--debugging` argument. If `--use_ssim_loss` is not mentioned, SSIM loss will not be used in the adversarial objective (Eq. 2).
+If adversarial images are not intended to be saved, use `--debugging` argument. If `--use_ssim_loss` is not mentioned, SSIM loss will not be used in the adversarial objective (Eq. 2). If adversarial versions of train images are indeded to be generated, use mention argument `gen_train_adv_mode` instead of `gen_val_adv_mode`
 
 For VAFA attack on each 2D slice of volumetric image, use : `--attack_name vafa-2d --q_max 20 --steps 20 --block_size 32 32 --use_ssim_loss`
 
@@ -119,10 +119,10 @@ python normal_or_adv_training.py --model_name unet-r --in_channels 1 --out_chann
 --json_list=dataset_synapse_18_12.json \
 --use_pretrained \
 --pretrained_path=<PATH_OF_PRETRAINED_MODEL>  \
---adv_training_mode --freq_reg_mode \
---attack_name vafa-3d --q_max 20 --steps 20 --block_size 32 32 32 --use_ssim_loss \
 --save_model_dir=<PATH_TO_SAVE_ADVERSARIALLY_TRAINED_MODEL> \
---val_every 15
+--val_every 15 \
+--adv_training_mode --freq_reg_mode \
+--attack_name vafa-3d --q_max 20 --steps 20 --block_size 32 32 32 --use_ssim_loss 
 ```
 
 Arugument `--adv_training_mode` in conjunction with `--freq_reg_mode` performs adversarial training with dice loss on clean images, adversarial images and frequency regularization term (Eq. 4) in the objective function (Eq. 3). For vanilla adversarial training (i.e. dice loss on adversarial images), use only `--adv_training_mode`. For normal training of the model, do not mention these two arguments. 
