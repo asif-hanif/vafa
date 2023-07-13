@@ -19,7 +19,8 @@ In the context of 2D natural images, it has been recently observed that frequenc
 <hr />
 
 ## Updates :loudspeaker:
-- **July 10, 2023** : 
+- **July 13, 2023** : Released pre-trained clean and adversarially trained (under VAFA attack) [UNETR](https://openaccess.thecvf.com/content/WACV2022/papers/Hatamizadeh_UNETR_Transformers_for_3D_Medical_Image_Segmentation_WACV_2022_paper.pdf) model 
+- **July 10, 2023** : Released code for attacking [UNETR](https://openaccess.thecvf.com/content/WACV2022/papers/Hatamizadeh_UNETR_Transformers_for_3D_Medical_Image_Segmentation_WACV_2022_paper.pdf) model with support for [Synapse](https://www.synapse.org/#!Synapse:syn3193805/wiki/217789) dataset.
 - **May 25, 2023** : Early acceptance in [MICCAI 2023](https://conferences.miccai.org/2023/en/)  &nbsp;&nbsp; :confetti_ball:
 
 
@@ -81,6 +82,8 @@ model = UNETR(
 ```
 
 We also used [UNETR++](https://arxiv.org/abs/2212.04497) in our experiments but its code is not in a presentable form. Therefore, we are not including support for UNETR++ model in this repository. 
+
+Clean and adversarially trained (under VAFA attack) [UNETR](https://openaccess.thecvf.com/content/WACV2022/papers/Hatamizadeh_UNETR_Transformers_for_3D_Medical_Image_Segmentation_WACV_2022_paper.pdf) can be downloaded [here](to-be-filled). Place these model in a directory and give full path of the model (including name of the model e.g. `/folder_a/folder_b/model.pt`) in argument `--pretrained_path`.
 
 
 ## Launch VAFA Attack on the Model
