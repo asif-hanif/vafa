@@ -40,7 +40,7 @@ pip install -r requirements.txt
 ## VAFA Attack
 Code of VAFA attack can be accessed in [here](attacks/vafa/vafa.py).
 
-## Datatset
+## Dataset
 We conducted experiments on two volumetric medical image segmentation datasets: [Synapse](https://www.synapse.org/#!Synapse:syn3193805/wiki/217789), ACDC. Synapse contains 14 classes (including background) and [ACDC](https://www.creatis.insa-lyon.fr/Challenge/acdc/databases.html) contains 4 classes (including background). We follow the same dataset preprocessing as in [nnFormer](https://github.com/282857341/nnFormer).  
 
 The dataset folders for Synapse should be organized as follows: 
