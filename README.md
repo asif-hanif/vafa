@@ -38,10 +38,10 @@ pip install -r requirements.txt
 ```
 
 ## VAFA Attack
-Code of VAFA attack can be accessed in [here](attacks/vafa/vafa.py).
+Code of VAFA attack can be accessed [here](attacks/vafa/vafa.py).
 
 ## Dataset
-We conducted experiments on two volumetric medical image segmentation datasets: [Synapse](https://www.synapse.org/#!Synapse:syn3193805/wiki/217789), ACDC. Synapse contains 14 classes (including background) and [ACDC](https://www.creatis.insa-lyon.fr/Challenge/acdc/databases.html) contains 4 classes (including background). We follow the same dataset preprocessing as in [nnFormer](https://github.com/282857341/nnFormer).  
+We conducted experiments on two volumetric medical image segmentation datasets: [Synapse](https://www.synapse.org/#!Synapse:syn3193805/wiki/217789), [ACDC](https://www.creatis.insa-lyon.fr/Challenge/acdc/databases.html). Synapse contains 14 classes (including background) and ACDC contains 4 classes (including background). We follow the same dataset preprocessing as in [nnFormer](https://github.com/282857341/nnFormer).  
 
 The dataset folders for Synapse should be organized as follows: 
 
@@ -89,7 +89,7 @@ Clean and adversarially trained (under VAFA attack) [UNETR](https://openaccess.t
 |:-- |:-- |:-- | 
 |Synapse | Clean UNETR | [Download](https://mbzuaiac-my.sharepoint.com/:u:/g/personal/asif_hanif_mbzuai_ac_ae/EaaTHPv6MGZGnDdwDYQRO9YBTGE3_87veLEXDG1V4uHjaw?e=XyLc61)|
 |Synapse | Adversarially Trained (under VAFA) UNETR | [Download](https://mbzuaiac-my.sharepoint.com/:u:/g/personal/asif_hanif_mbzuai_ac_ae/EVji-stXEFVChGViXw2se1kBFO1SPR4H1F2FGJKWYR-QLQ?e=ATeSnN)|
-|Synapse | Adversarially Trained (under VAFA, **without** Frequecny Regularization Eq.4 ) UNETR | [Download](https://mbzuaiac-my.sharepoint.com/:u:/g/personal/asif_hanif_mbzuai_ac_ae/EflJdtvNAA1AsbHAVOsVlCcBqXsEz1uNep8iEphSO_bFWA?e=q4BYS0)|
+|Synapse | Adversarially Trained (under VAFA, **without** Frequecny Regularization Eq. 4 and dice loss on clean images ) UNETR | [Download](https://mbzuaiac-my.sharepoint.com/:u:/g/personal/asif_hanif_mbzuai_ac_ae/EflJdtvNAA1AsbHAVOsVlCcBqXsEz1uNep8iEphSO_bFWA?e=q4BYS0)|
 
 
 
