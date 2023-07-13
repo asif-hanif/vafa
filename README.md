@@ -47,12 +47,18 @@ The dataset folders for Synapse should be organized as follows:
 ```
 DATASET_SYNAPSE/
   ├── imagesTr/
-  ├── imagesTs/
+      ├── img0001.nii.gz
+      ├── img0002.nii.gz
+      ├── img0003.nii.gz
+      ├── ...  
   ├── labelsTr/
-  ├── labelsTs/
+      ├── label0001.nii.gz
+      ├── label0002.nii.gz
+      ├── label0003.nii.gz
+      ├── ...  
   ├── dataset_synapse_18_12.json
  ```
-File `dataset_synapse_18_12.json` contains train-test split of Synapse datatset. There are 18 train images and 12 test images. File can be accessed [here](miscellaneous/dataset_synapse_18_12.json). 
+File `dataset_synapse_18_12.json` contains train-test split (created from train files) of Synapse datatset. There are 18 train images and 12 test images. File can be accessed here. 
 
 ## Model
 We use [UNETR](https://openaccess.thecvf.com/content/WACV2022/papers/Hatamizadeh_UNETR_Transformers_for_3D_Medical_Image_Segmentation_WACV_2022_paper.pdf) model with following parameters:
