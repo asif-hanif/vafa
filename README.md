@@ -9,8 +9,8 @@ and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&h
 
 
 [![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](miscellaneous/frequency_domain_adversarial_training_for_robust_volumetric_medical_segmentation_miccai2023.pdf)
-[![video](https://img.shields.io/badge/Video-Presentation-F9D371)]()
-[![slides](https://img.shields.io/badge/Presentation-Slides-B762C1)]()
+[![video](https://img.shields.io/badge/Video-Presentation-F9D371)](miscellaneous/to_be_announced.md)
+[![slides](https://img.shields.io/badge/Presentation-Slides-B762C1)](miscellaneous/to_be_announced.md)
 
 
 
