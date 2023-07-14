@@ -5,7 +5,7 @@
 [Muzammal Naseer](https://scholar.google.ch/citations?user=tM9xKA8AAAAJ&hl=en),
 [Salman Khan](https://salman-h-khan.github.io),
 [Mubarak Shah](https://scholar.google.com/citations?user=p8gsO3gAAAAJ&hl=en)
-and [Fahad Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&hl=en)
+and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&hl=en)
 
 
 [![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)]()
