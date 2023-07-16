@@ -32,8 +32,8 @@ In the context of 2D natural images, it has been recently observed that frequenc
 ```math
 \begin{equation} \label{eq: afa objective}
 \begin{gathered}
-\underset{ \bm{\mathrm{q}} }{\mathrm{maximize}}~~ \mathcal{L}_{\mathrm{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}), {\mathrm{Y}}) - \mathcal{L}_{\mathrm{ssim}}({\mathrm{X}},{\mathrm{X}}^{\prime}) \\
-\mathrm{s.t.}~~ \|\bm{\mathrm{q}}\|_{\infty} \le q_{\mathrm{max}},
+\underset{ \boldsymbol{\mathrm{q}} }{\mathrm{maximize}}~~ \mathcal{L}_{\mathrm{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}), {\mathrm{Y}}) - \mathcal{L}_{\mathrm{ssim}}({\mathrm{X}},{\mathrm{X}}^{\prime}) \\
+\mathrm{s.t.}~~ \|\boldsymbol{\mathrm{q}}\|_{\infty} \le q_{\mathrm{max}},
 \end{gathered}
 \end{equation}
 ```
