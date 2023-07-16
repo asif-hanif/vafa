@@ -44,13 +44,10 @@ In the context of 2D natural images, it has been recently observed that frequenc
 
 ```math
 \begin{equation}
-\begin{gathered}
- \underset{ \theta }{\mathrm{minimize}}~ \mathcal{L}_{\text{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}), {\mathrm{Y}})+  \mathcal{L}_{\text{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}), {\mathrm{Y}}) + \mathcal{L}_{_{\mathrm{fr}}}(\mathcal{M}_{\theta}({\mathrm{X}}),\mathcal{M}_{\theta}({\mathrm{X}}^{\prime})) \\
-\mathcal{L}_{_{\mathrm{fr}}}(\mathcal{M}_{\theta}({\mathrm{X}}),\mathcal{M}_{\theta}({\mathrm{X}}^{\prime})) = \|\mathcal{D}(\mathcal{M}_{\theta}({\mathrm{X}}))-\mathcal{D}(\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}))\|_{_1},
-\end{gathered}
+ \underset{ \theta }{\mathrm{minimize}}~ \mathcal{L}_{\text{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}), {\mathrm{Y}})+  \mathcal{L}_{\text{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}), {\mathrm{Y}}) + \mathcal{L}_{_{\mathrm{fr}}}(\mathcal{M}_{\theta}({\mathrm{X}}),\mathcal{M}_{\theta}({\mathrm{X}}^{\prime})) 
 \end{equation}
 ```
-where $`\mathrm{X}^{\prime}`$ is obtained from VAFA attack.
+where $`\mathrm{X}^{\prime}`$ is obtained from VAFA attack and $`\mathcal{L}_{_{\mathrm{fr}}}(\mathcal{M}_{\theta}({\mathrm{X}}),\mathcal{M}_{\theta}({\mathrm{X}}^{\prime})) = \|\mathcal{D}(\mathcal{M}_{\theta}({\mathrm{X}}))-\mathcal{D}(\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}))\|_{_1}`$ if frequency consistency loss.
 
 
 <hr />
