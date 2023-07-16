@@ -27,6 +27,8 @@ and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&h
 ## Brief Description
 In the context of 2D natural images, it has been recently observed that frequency-domain based adversarial attacks are more effective against the defenses that are primarily designed to *undo* the impact of pixel-domain adversarial noise in natural images. Motivated by this observation in 2D natural images, here we explore the effectiveness of frequency-domain based adversarial attacks in the regime of volumetric medical image segmentation and aim to obtain a volumetric medical image segmentation model that is robust against adversarial attacks. To achieve this goal, we propose a *min-max* objective for adversarial training of volumetric medical image segmentation model in frequency-domain. 
 
+</br>
+
 > **Volumetric Adversaral Frequency Attack (VAFA)**: For *maximization* step, we introduce **V**olumetric **A**dversarial **F**requency **A**ttack - **VAFA** which operates in the frequency-domain of the data (unlike other prevalent voxel-domain attacks) and explicitly takes into account the 3D nature of the volumetric medical data to achieve higher fooling rate. The proposed **VAFA** transforms the 3D patches of input volumetric medical image into frequency-domain by employing 3D discrete cosine transform (3D-DCT) and perturbs the DCT coefficients via a learnable *quantization* table and then converts the perturbed frequency-domain data back into voxel-domain through inverse 3D-DCT. To preserve structural information in adversarial sample, we incorporate SSIM loss along with adversarial loss which helps us attain better SSIM and LPIPS. We optimize following objective to generate adversarial sample:
 
 ```math
@@ -40,15 +42,18 @@ In the context of 2D natural images, it has been recently observed that frequenc
 
 > where $`\mathrm{X}^{\prime} = \mathcal{D}_{I}\big(\varphi(\mathcal{D}({\mathrm{X}})~,~\boldsymbol{\mathrm{q}})\big)`$. $`\mathcal{D}(\cdot)~\text{and}~\mathcal{D}_{I}(\cdot)`$ are 3D-DCT and 3D-IDCT functions respectively. $`\boldsymbol{\mathrm{q}}`$ is learnable quatization table and $`\varphi(\cdot)`$ is a function which performs three operation: quantization, rounding and de-quatization of DCT coefficients. $`\mathcal{L}_{\mathrm{dice}}(\cdot)~\text{and}~\mathcal{L}_{\mathrm{ssim}}(\cdot)`$ are dice loss and structural similarity loss functions respectively. For further details, please check our paper.
 
-> **Volumetric Adversaral Frequency Training (VAFT)**: For *minimization* step, we propose **V**olumetric **A**dversarial **F**requency **T**raining - **VAFT** to obtain a model that is robust to adversarial attacks. In VAFT, we update model parameters on clean and adversarial (obtained via VAFA) samples and further introduce a novel *frequency consistency loss* to keep frequency representation of logits of clean and adversarial samples close to each other for a better accuracy tradeoff.
+</br>
+
+> **Volumetric Adversaral Frequency Training (VAFT)**: For *minimization* step, we propose **V**olumetric **A**dversarial **F**requency **T**raining - **VAFT** to obtain a model that is robust to adversarial attacks. In VAFT, we update model parameters on clean and adversarial (obtained via VAFA) samples and further introduce a novel *frequency consistency loss* to keep frequency representation of logits of clean and adversarial samples close to each other for a better accuracy tradeoff. We solve following objective during adversarial training:
 
 ```math
 \begin{equation}
  \underset{ \theta }{\mathrm{minimize}}~ \mathcal{L}_{\text{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}), {\mathrm{Y}})+  \mathcal{L}_{\text{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}), {\mathrm{Y}}) + \mathcal{L}_{_{\mathrm{fr}}}(\mathcal{M}_{\theta}({\mathrm{X}}),\mathcal{M}_{\theta}({\mathrm{X}}^{\prime})) 
 \end{equation}
 ```
-where $`\mathrm{X}^{\prime}`$ is obtained from VAFA attack and $`\mathcal{L}_{_{\mathrm{fr}}}(\mathcal{M}_{\theta}({\mathrm{X}}),\mathcal{M}_{\theta}({\mathrm{X}}^{\prime})) = \|\mathcal{D}(\mathcal{M}_{\theta}({\mathrm{X}}))-\mathcal{D}(\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}))\|_{_1}`$ if frequency consistency loss.
+where $`\mathrm{X}^{\prime}`$ is obtained from VAFA attack and $`\mathcal{L}_{_{\mathrm{fr}}}(\mathcal{M}_{\theta}({\mathrm{X}}),\mathcal{M}_{\theta}({\mathrm{X}}^{\prime})) = \|\mathcal{D}(\mathcal{M}_{\theta}({\mathrm{X}}))-\mathcal{D}(\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}))\|_{_1}`$ is frequency consistency loss.
 
+</br>
 
 <hr />
 
