@@ -30,7 +30,7 @@ In the context of 2D natural images, it has been recently observed that frequenc
 > **Volumetric Adversaral Frequency Attack (VAFA)**: For *maximization* step, we introduce **V**olumetric **A**dversarial **F**requency **A**ttack - **VAFA** which operates in the frequency-domain of the data (unlike other prevalent voxel-domain attacks) and explicitly takes into account the 3D nature of the volumetric medical data to achieve higher fooling rate. The proposed **VAFA** transforms the 3D patches of input volumetric medical image into frequency-domain by employing 3D discrete cosine transform (3D-DCT) and perturbs the DCT coefficients via a learnable *quantization* table and then converts the perturbed frequency-domain data back into voxel-domain through inverse 3D-DCT. To preserve structural information in adversarial sample, we incorporate SSIM loss along with adversarial loss which helps us attain better SSIM and LPIPS. We optimize following objective to generate adversarial sample:
 
 ```math
-\begin{equation} \label{eq: afa objective}
+\begin{equation} 
 \begin{gathered}
 \underset{ \boldsymbol{\mathrm{q}} }{\mathrm{maximize}}~~ \mathcal{L}_{\mathrm{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}), {\mathrm{Y}}) - \mathcal{L}_{\mathrm{ssim}}({\mathrm{X}},{\mathrm{X}}^{\prime}) \\
 \mathrm{s.t.}~~ \|\boldsymbol{\mathrm{q}}\|_{\infty} \le q_{\mathrm{max}},
@@ -44,10 +44,10 @@ In the context of 2D natural images, it has been recently observed that frequenc
 
 ```math
 \begin{equation}
- \underset{ \theta }{\mathrm{minimize}}~ \mathcal{L}_{\text{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}), {\mathrm{Y}})+  \mathcal{L}_{\text{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}), {\mathrm{Y}}) + \mathcal{L}_{_{\mathrm{fr}}}(\mathcal{M}_{\theta}({\mathrm{X}}),\mathcal{M}_{\theta}({\mathrm{X}}^{\prime})),   
-\end{equation}
-\begin{equation} 
+\begin{gathered}
+ \underset{ \theta }{\mathrm{minimize}}~ \mathcal{L}_{\text{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}), {\mathrm{Y}})+  \mathcal{L}_{\text{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}), {\mathrm{Y}}) + \mathcal{L}_{_{\mathrm{fr}}}(\mathcal{M}_{\theta}({\mathrm{X}}),\mathcal{M}_{\theta}({\mathrm{X}}^{\prime})) \\
 \mathcal{L}_{_{\mathrm{fr}}}(\mathcal{M}_{\theta}({\mathrm{X}}),\mathcal{M}_{\theta}({\mathrm{X}}^{\prime})) = \|\mathcal{D}(\mathcal{M}_{\theta}({\mathrm{X}}))-\mathcal{D}(\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}))\|_{_1},
+\end{gathered}
 \end{equation}
 ```
 where $`\mathrm{X}^{\prime}`$ is obtained from VAFA attack.
