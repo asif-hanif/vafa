@@ -32,6 +32,17 @@ In the context of 2D natural images, it has been recently observed that frequenc
 > **Volumetric Adversaral Frequency Training (VAFT)**: For *minimization* step, we propose **V**olumetric **A**dversarial **F**requency **T**raining - **VAFT** to obtain a model that is robust to adversarial attacks. In VAFT, we update model parameters on clean and adversarial (obtained via VAFA) samples and further introduce a novel *frequency consistency loss* to keep frequency representation of logits of clean and adversarial samples close to each other for a better accuracy tradeoff.
 <hr />
 
+```
+math
+\begin{equation} \label{eq: afa objective}
+\begin{gathered}
+\underset{ \bm{\mathrm{q}} }{\mathrm{maximize}}~~ \mathcal{L}_{\mathrm{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}), {\mathrm{Y}}) - \mathcal{L}_{\mathrm{ssim}}({\mathrm{X}},{\mathrm{X}}^{\prime}) \\
+\mathrm{s.t.}~~ \|\bm{\mathrm{q}}\|_{\infty} \le q_{\mathrm{max}},
+\end{gathered}
+\end{equation}
+```
+where $\mathcal{L}_{\mathrm{ssim}}({\mathrm{X}},{\mathrm{X}}^{\prime}) = 1-\frac{1}{n} \sum_{i=1}^{n} \mathrm{SSIM}(\bm{\mathrm{x}}_i,\bm{\mathrm{x}}^{\prime}_i) $ is structural similarity loss.
+
 ## Updates :rocket:
 - **July 13, 2023** : Released pre-trained clean and adversarially trained (under VAFA attack) [UNETR](https://openaccess.thecvf.com/content/WACV2022/papers/Hatamizadeh_UNETR_Transformers_for_3D_Medical_Image_Segmentation_WACV_2022_paper.pdf) model checkpoints. 
 - **July 10, 2023** : Released code for attacking [UNETR](https://openaccess.thecvf.com/content/WACV2022/papers/Hatamizadeh_UNETR_Transformers_for_3D_Medical_Image_Segmentation_WACV_2022_paper.pdf) model with support for [Synapse](https://www.synapse.org/#!Synapse:syn3193805/wiki/217789) dataset.
