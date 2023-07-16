@@ -38,7 +38,7 @@ In the context of 2D natural images, it has been recently observed that frequenc
 \end{equation}
 ```
 
-where $`\mathcal{D}(\cdot),~\mathcal{D}_{I}(\cdot)`$ and $\varphi(\cdot,\cdot)$ are 3D-DCT, 3D-IDCT and quantization functions. $\mathcal{L}_{\mathrm{dice}}(\cdot,\cdot),\mathcal{L}_{\mathrm{ssim}}(\cdot,\cdot)$ are dice loss and structural similarity loss respectively. For further details, please check our paper.
+where $`\mathrm{X}^{\prime} = \mathcal{D}_{I}\bigg(\varphi(\mathcal{D}({\mathrm{X}}),\boldsymbol{\mathrm{q}})\bigg)`$. $`\mathcal{D}(\cdot)~\text{and}~\mathcal{D}_{I}(\cdot)`$ are 3D-DCT and 3D-IDCT functions respectively. $`\boldsymbol{\mathrm{q}}`$ is learnable quatization table and $`\varphi(\cdot)`$ is a function which performs three operation: quantization, rounding and de-quatization of DCT coefficients. $`\mathcal{L}_{\mathrm{dice}}(\cdot),\mathcal{L}_{\mathrm{ssim}}(\cdot)`$ are dice loss and structural similarity loss respectively. For further details, please check our paper.
 
 > **Volumetric Adversaral Frequency Training (VAFT)**: For *minimization* step, we propose **V**olumetric **A**dversarial **F**requency **T**raining - **VAFT** to obtain a model that is robust to adversarial attacks. In VAFT, we update model parameters on clean and adversarial (obtained via VAFA) samples and further introduce a novel *frequency consistency loss* to keep frequency representation of logits of clean and adversarial samples close to each other for a better accuracy tradeoff.
 <hr />
