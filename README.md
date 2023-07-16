@@ -29,9 +29,6 @@ In the context of 2D natural images, it has been recently observed that frequenc
 
 > **Volumetric Adversaral Frequency Attack (VAFA)**: For *maximization* step, we introduce **V**olumetric **A**dversarial **F**requency **A**ttack - **VAFA** which operates in the frequency-domain of the data (unlike other prevalent voxel-domain attacks) and explicitly takes into account the 3D nature of the volumetric medical data to achieve higher fooling rate. The proposed **VAFA** transforms the 3D patches of input volumetric medical image into frequency-domain by employing 3D discrete cosine transform (3D-DCT) and perturbs the DCT coefficients via a learnable *quantization* table and then converts the perturbed frequency-domain data back into voxel-domain through inverse 3D-DCT. To preserve structural information in adversarial sample, we incorporate SSIM loss along with adversarial loss which helps us attain better SSIM and LPIPS. 
 
-> **Volumetric Adversaral Frequency Training (VAFT)**: For *minimization* step, we propose **V**olumetric **A**dversarial **F**requency **T**raining - **VAFT** to obtain a model that is robust to adversarial attacks. In VAFT, we update model parameters on clean and adversarial (obtained via VAFA) samples and further introduce a novel *frequency consistency loss* to keep frequency representation of logits of clean and adversarial samples close to each other for a better accuracy tradeoff.
-<hr />
-
 ```math
 \begin{equation} \label{eq: afa objective}
 \begin{gathered}
@@ -40,6 +37,11 @@ In the context of 2D natural images, it has been recently observed that frequenc
 \end{gathered}
 \end{equation}
 ```
+
+> **Volumetric Adversaral Frequency Training (VAFT)**: For *minimization* step, we propose **V**olumetric **A**dversarial **F**requency **T**raining - **VAFT** to obtain a model that is robust to adversarial attacks. In VAFT, we update model parameters on clean and adversarial (obtained via VAFA) samples and further introduce a novel *frequency consistency loss* to keep frequency representation of logits of clean and adversarial samples close to each other for a better accuracy tradeoff.
+<hr />
+
+
 
 where $\mathcal{L}_{\mathrm{ssim}}({\mathrm{X}},{\mathrm{X}}^{\prime}) = 1-\frac{1}{n} \sum_{i=1}^{n} \mathrm{SSIM}(\bm{\mathrm{x}}_i,\bm{\mathrm{x}}^{\prime}_i) $ is structural similarity loss.
 
