@@ -38,7 +38,7 @@ In the context of 2D natural images, it has been recently observed that frequenc
 \end{equation}
 ```
 
-where $\mathcal{L}_{\mathrm{ssim}}({\mathrm{X}},{\mathrm{X}}^{\prime}) = 1-\frac{1}{n} \sum_{i=1}^{n} \mathrm{SSIM}(\bm{\mathrm{x}}_i,\bm{\mathrm{x}}^{\prime}_i) $ is structural similarity loss.
+where $`\mathcal{D}(\cdot),~\mathcal{D}_{I}(\cdot)`$ and $\varphi(\cdot,\cdot)$ are 3D-DCT, 3D-IDCT and quantization functions. $\mathcal{L}_{\mathrm{dice}}(\cdot,\cdot),\mathcal{L}_{\mathrm{ssim}}(\cdot,\cdot)$ are dice loss and structural similarity loss respectively. For further details, please check our paper.
 
 > **Volumetric Adversaral Frequency Training (VAFT)**: For *minimization* step, we propose **V**olumetric **A**dversarial **F**requency **T**raining - **VAFT** to obtain a model that is robust to adversarial attacks. In VAFT, we update model parameters on clean and adversarial (obtained via VAFA) samples and further introduce a novel *frequency consistency loss* to keep frequency representation of logits of clean and adversarial samples close to each other for a better accuracy tradeoff.
 <hr />
