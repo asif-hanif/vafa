@@ -38,9 +38,21 @@ In the context of 2D natural images, it has been recently observed that frequenc
 \end{equation}
 ```
 
-> where $`\mathrm{X}^{\prime} = \mathcal{D}_{I}\big(\varphi(\mathcal{D}({\mathrm{X}})~,~\boldsymbol{\mathrm{q}})\big)`$. $`\mathcal{D}(\cdot)~\text{and}~\mathcal{D}_{I}(\cdot)`$ are 3D-DCT and 3D-IDCT functions respectively. $`\boldsymbol{\mathrm{q}}`$ is learnable quatization table and $`\varphi(\cdot)`$ is a function which performs three operation: quantization, rounding and de-quatization of DCT coefficients. $`\mathcal{L}_{\mathrm{dice}}(\cdot),\mathcal{L}_{\mathrm{ssim}}(\cdot)`$ are dice loss and structural similarity loss respectively. For further details, please check our paper.
+> where $`\mathrm{X}^{\prime} = \mathcal{D}_{I}\big(\varphi(\mathcal{D}({\mathrm{X}})~,~\boldsymbol{\mathrm{q}})\big)`$. $`\mathcal{D}(\cdot)~\text{and}~\mathcal{D}_{I}(\cdot)`$ are 3D-DCT and 3D-IDCT functions respectively. $`\boldsymbol{\mathrm{q}}`$ is learnable quatization table and $`\varphi(\cdot)`$ is a function which performs three operation: quantization, rounding and de-quatization of DCT coefficients. $`\mathcal{L}_{\mathrm{dice}}(\cdot)~\text{and}~\mathcal{L}_{\mathrm{ssim}}(\cdot)`$ are dice loss and structural similarity loss functions respectively. For further details, please check our paper.
 
 > **Volumetric Adversaral Frequency Training (VAFT)**: For *minimization* step, we propose **V**olumetric **A**dversarial **F**requency **T**raining - **VAFT** to obtain a model that is robust to adversarial attacks. In VAFT, we update model parameters on clean and adversarial (obtained via VAFA) samples and further introduce a novel *frequency consistency loss* to keep frequency representation of logits of clean and adversarial samples close to each other for a better accuracy tradeoff.
+
+```math
+\begin{equation}
+ \underset{ \theta }{\mathrm{minimize}}~ \mathcal{L}_{\text{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}), {\mathrm{Y}})+  \mathcal{L}_{\text{dice}} (\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}), {\mathrm{Y}}) + \mathcal{L}_{_{\mathrm{fr}}}(\mathcal{M}_{\theta}({\mathrm{X}}),\mathcal{M}_{\theta}({\mathrm{X}}^{\prime})),   
+\end{equation}
+\begin{equation} 
+\mathcal{L}_{_{\mathrm{fr}}}(\mathcal{M}_{\theta}({\mathrm{X}}),\mathcal{M}_{\theta}({\mathrm{X}}^{\prime})) = \|\mathcal{D}(\mathcal{M}_{\theta}({\mathrm{X}}))-\mathcal{D}(\mathcal{M}_{\theta}({\mathrm{X}}^{\prime}))\|_{_1},
+\end{equation}
+```
+where $`\mathrm{X}^{\prime}`$ is obtained from VAFA attack.
+
+
 <hr />
 
 
