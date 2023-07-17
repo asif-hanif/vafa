@@ -40,7 +40,7 @@ In the context of 2D natural images, it has been recently observed that frequenc
 \end{equation}
 ```
 
-> where $`\mathrm{X}^{\prime} = \mathcal{D}_{I}\big(~\varphi(\mathcal{D}({\mathrm{X}}),\boldsymbol{\mathrm{q}})~\big)`$. $`\mathcal{D}(\cdot)~\text{and}~\mathcal{D}_{I}(\cdot)`$ are 3D-DCT and 3D-IDCT functions respectively. $`\boldsymbol{\mathrm{q}}`$ is learnable quatization table and $`\varphi(\cdot)`$ is a function which performs three operation: quantization, rounding and de-quatization of DCT coefficients. $`\mathcal{L}_{\mathrm{dice}}(\cdot)~\text{and}~\mathcal{L}_{\mathrm{ssim}}(\cdot)`$ are dice loss and structural similarity loss functions respectively. For further details, please check our paper.
+> where $`\mathrm{X}`$ is clean image and $`\mathrm{X}^{\prime} = \mathcal{D}_{I}\big(~\varphi(\mathcal{D}({\mathrm{X}}),\boldsymbol{\mathrm{q}})~\big)`$ is adversarial image. $`\mathcal{D}(\cdot)~\text{and}~\mathcal{D}_{I}(\cdot)`$ are 3D-DCT and 3D-IDCT functions respectively. $`\boldsymbol{\mathrm{q}}`$ is learnable quatization table and $`\varphi(\cdot)`$ is a function which performs three operations: quantization, rounding and de-quatization of DCT coefficients. $`\mathcal{L}_{\mathrm{dice}}(\cdot)~\text{and}~\mathcal{L}_{\mathrm{ssim}}(\cdot)`$ are dice loss and structural similarity loss functions respectively. For further details, please check our paper.
 
 </br>
 
