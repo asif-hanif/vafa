@@ -8,7 +8,7 @@
 and [Fahad Shahbaz Khan](https://scholar.google.es/citations?user=zvaeYnUAAAAJ&hl=en)
 
 
-[![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](miscellaneous/frequency_domain_adversarial_training_for_robust_volumetric_medical_segmentation_miccai2023.pdf)
+[![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2307.07269)
 [![video](https://img.shields.io/badge/Video-Presentation-F9D371)](miscellaneous/to_be_announced.md)
 [![slides](https://img.shields.io/badge/Presentation-Slides-B762C1)](miscellaneous/to_be_announced.md)
 
@@ -44,7 +44,7 @@ In the context of 2D natural images, it has been recently observed that frequenc
 
 </br>
 
-> **Volumetric Adversaral Frequency Training (VAFT)**: For *minimization* step, we propose **V**olumetric **A**dversarial **F**requency **T**raining - **VAFT** to obtain a model that is robust to adversarial attacks. In VAFT, we update model parameters on clean and adversarial (obtained via VAFA) samples and further introduce a novel *frequency consistency loss* to keep frequency representation of logits of clean and adversarial samples close to each other for a better accuracy tradeoff. We solve following objective during adversarial training:
+> **Volumetric Adversaral Frequency Training (VAFT)**: For *minimization* step, we propose **V**olumetric **A**dversarial **F**requency **T**raining - **VAFT** to obtain a model that is robust to adversarial attacks. In VAFT, we update model parameters on clean and adversarial (obtained via VAFA) samples and further introduce a novel *frequency consistency loss* to keep frequency representation of the logits of clean and adversarial samples close to each other for a better accuracy tradeoff. We solve following objective during adversarial training:
 
 ```math
 \begin{equation}
