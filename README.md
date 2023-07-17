@@ -196,7 +196,7 @@ Attack related arguments are used to automaticaaly find the sub-folder containin
 ## Citation
 If you use our work, please consider citing:
 ```bibtex
-    @inproceedings{asif2023vafa,
+@inproceedings{asif2023vafa,
   title={Frequency Domain Adversarial Training for Robust Volumetric Medical Segmentation},
   author={Hanif, Asif and Naseer, Muzammal and Khan, Salman and Shah, Mubarak and Khan, Fahad},
   booktitle={MICCAI},
