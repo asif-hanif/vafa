@@ -211,7 +211,8 @@ Should you have any question, please create an issue on this repository or conta
 
 <hr />
 
-
+<!---
 ## Our Related Works
 - Checkout our related work [SPA: Spectrum Perturbation Attack for Volumetric Medical Image Segmentation](https://github.com/asif-hanif/spa).
 - Github Link: https://github.com/asif-hanif/spa
+  --->
