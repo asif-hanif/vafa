@@ -160,7 +160,7 @@ Use following arguments when launching pixel/voxel domain attacks:
 
 [GN](https://adversarial-attacks-pytorch.readthedocs.io/en/latest/attacks.html#module-torchattacks.attacks.gn):&nbsp;&nbsp;&nbsp;&nbsp;   `--attack_name gn --steps 20 --eps 4 --alpha 0.01 --std 4`
 
-## Lanuch Adversarial Training (VAFT) of the Model
+## Launch Adversarial Training (VAFT) of the Model
 ```shell
 python normal_or_adv_training.py --model_name unet-r --in_channels 1 --out_channel 14 --feature_size=16 --batch_size=3 --max_epochs 5000 --optim_lr=1e-4 --lrschedule=warmup_cosine --infer_overlap=0.5 \
 --save_checkpoint \
