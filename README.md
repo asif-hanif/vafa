@@ -146,7 +146,7 @@ python generate_train_or_val_adv.py --model_name unet-r --feature_size=16 --infe
 --save_adv_images_dir=<PATH_TO_SAVE_ADV_TEST_IMAGES> \
 --attack_name vafa-3d --q_max 20 --steps 20 --block_size 32 32 32 --use_ssim_loss --debugging
 ```
-If adversarial images are not intended to be saved, use `--debugging` argument. If `--use_ssim_loss` is not mentioned, SSIM loss will not be used in the adversarial objective (Eq. 2). If adversarial versions of train images are indeded to be generated, mention argument `gen_train_adv_mode` instead of `gen_val_adv_mode`.
+If adversarial images are not intended to be saved, use `--debugging` argument. If `--use_ssim_loss` is not mentioned, SSIM loss will not be used in the adversarial objective (Eq. 2). If adversarial versions of train images are indeded to be generated, mention argument `--gen_train_adv_mode` instead of `--gen_val_adv_mode`.
 
 For VAFA attack on each 2D slice of volumetric image, use : `--attack_name vafa-2d --q_max 20 --steps 20 --block_size 32 32 --use_ssim_loss`
 
