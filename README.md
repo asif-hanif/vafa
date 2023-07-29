@@ -194,7 +194,7 @@ Attack related arguments are used to automaticaaly find the sub-folder containin
 
 
 ## Citation
-If you use our work, please consider citing:
+If you find our work, this repository, or pretrained models useful, please consider giving a star :star: and citation.
 ```bibtex
 @inproceedings{asif2023vafa,
   title={Frequency Domain Adversarial Training for Robust Volumetric Medical Segmentation},
