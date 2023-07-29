@@ -1,7 +1,7 @@
-# Frequency Domain Adversarial Training for Robust Volumetric Medical Segmentation ([MICCAI'23](https://conferences.miccai.org/2023/en/))
+# Frequency Domain Adversarial Training for Robust Volumetric Medical Segmentation (MICCAI'23)
 
-
-[Asif Hanif](https://scholar.google.com/citations?hl=en&user=6SO2wqUAAAAJ), 
+> [**Frequency Domain Adversarial Training for Robust Volumetric Medical Segmentation**](https://arxiv.org/abs/2307.06948)<br>
+> [Asif Hanif](https://scholar.google.com/citations?hl=en&user=6SO2wqUAAAAJ), 
 [Muzammal Naseer](https://scholar.google.ch/citations?user=tM9xKA8AAAAJ&hl=en),
 [Salman Khan](https://salman-h-khan.github.io),
 [Mubarak Shah](https://scholar.google.com/citations?user=p8gsO3gAAAAJ&hl=en)
