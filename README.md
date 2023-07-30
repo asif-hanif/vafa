@@ -134,10 +134,9 @@ Clean and adversarially trained (under VAFA attack) [UNETR](https://openaccess.t
 
 | Dataset | Model | Link |
 |:-- |:-- |:-- | 
-|Synapse | Clean UNETR | [Download](https://mbzuaiac-my.sharepoint.com/:u:/g/personal/asif_hanif_mbzuai_ac_ae/EaaTHPv6MGZGnDdwDYQRO9YBTGE3_87veLEXDG1V4uHjaw?e=XyLc61)|
-|Synapse | Adversarially Trained (under VAFA) UNETR | [Download](https://mbzuaiac-my.sharepoint.com/:u:/g/personal/asif_hanif_mbzuai_ac_ae/EVji-stXEFVChGViXw2se1kBFO1SPR4H1F2FGJKWYR-QLQ?e=ATeSnN)|
-|Synapse | Adversarially Trained (under VAFA, **without** Frequecny Regularization Eq. 4 and dice loss on clean images ) UNETR | [Download](https://mbzuaiac-my.sharepoint.com/:u:/g/personal/asif_hanif_mbzuai_ac_ae/EflJdtvNAA1AsbHAVOsVlCcBqXsEz1uNep8iEphSO_bFWA?e=q4BYS0)|
-
+|Synapse | Clean UNETR $(\mathcal{M})$ | [Download](https://mbzuaiac-my.sharepoint.com/:u:/g/personal/asif_hanif_mbzuai_ac_ae/EaaTHPv6MGZGnDdwDYQRO9YBTGE3_87veLEXDG1V4uHjaw?e=XyLc61)|
+|Synapse | Adversarially Trained (under VAFA) UNETR $(\mathcal{M}_{{\mathrm{VAFA-FR}}})$  | [Download](https://mbzuaiac-my.sharepoint.com/:u:/g/personal/asif_hanif_mbzuai_ac_ae/EVji-stXEFVChGViXw2se1kBFO1SPR4H1F2FGJKWYR-QLQ?e=ATeSnN)|
+|Synapse | Adversarially Trained (under VAFA, **without** Frequecny Regularization Eq. 4 and dice loss on clean images ) UNETR $(\mathcal{M}_{{\mathrm{VAFA}}})$ | [Download](https://mbzuaiac-my.sharepoint.com/:u:/g/personal/asif_hanif_mbzuai_ac_ae/EflJdtvNAA1AsbHAVOsVlCcBqXsEz1uNep8iEphSO_bFWA?e=q4BYS0)|
 
 
 
