@@ -82,7 +82,7 @@ pip install -r requirements.txt
 Code of VAFA attack can be accessed [here](attacks/vafa/vafa.py).
 
 ## Dataset
-We conducted experiments on two volumetric medical image segmentation datasets: [Synapse](https://www.synapse.org/#!Synapse:syn3193805/wiki/217789), [ACDC](https://www.creatis.insa-lyon.fr/Challenge/acdc/databases.html). Synapse contains 14 classes (including background) and ACDC contains 4 classes (including background). We follow the same dataset preprocessing as in [nnFormer](https://github.com/282857341/nnFormer).  
+We conducted experiments on two volumetric medical image segmentation datasets: [Synapse](https://www.synapse.org/#!Synapse:syn3193805/wiki/217789), [ACDC](https://www.creatis.insa-lyon.fr/Challenge/acdc/databases.html). Synapse contains 14 classes (including background) and ACDC contains 4 classes (including background). We follow the same dataset preprocessing as in [nnFormer](https://github.com/282857341/nnFormer). 
 
 The dataset folders for Synapse should be organized as follows: 
 
@@ -101,7 +101,13 @@ DATASET_SYNAPSE/
     ├── dataset_synapse_18_12.json
  ```
 
-File `dataset_synapse_18_12.json` contains train-val split (created from train files) of Synapse datatset. There are 18 train images and 12 validation images. File `dataset_synapse_18_12.json` can be accessed [here](miscellaneous/dataset_synapse_18_12.json). Place this file in datatset parent folder. 
+File `dataset_synapse_18_12.json` contains train-val split (created from train files) of Synapse datatset. There are 18 train images and 12 validation images. File `dataset_synapse_18_12.json` can be accessed [here](miscellaneous/dataset_synapse_18_12.json). Place this file in datatset parent folder. Pre-processed Synapse dataset can be downloaded from the following link as well.
+
+| Dataset | Link |
+|:-- |:-- |
+| BTCV-Synapse (18-12 split) | [Download](https://mbzuaiac-my.sharepoint.com/:u:/g/personal/asif_hanif_mbzuai_ac_ae/EaaTHPv6MGZGnDdwDYQRO9YBTGE3_87veLEXDG1V4uHjaw?e=XyLc61) |
+
+</br>
 
 ## Model
 We use [UNETR](https://openaccess.thecvf.com/content/WACV2022/papers/Hatamizadeh_UNETR_Transformers_for_3D_Medical_Image_Segmentation_WACV_2022_paper.pdf) model with following parameters:
