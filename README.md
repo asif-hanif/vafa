@@ -203,10 +203,10 @@ Attack related arguments are used to automaticaaly find the sub-folder containin
 ## Citation
 If you find our work, this repository, or pretrained models useful, please consider giving a star :star: and citation.
 ```bibtex
-@inproceedings{asif2023vafa,
+@article{hanif2023frequency,
   title={Frequency Domain Adversarial Training for Robust Volumetric Medical Segmentation},
-  author={Hanif, Asif and Naseer, Muzammal and Khan, Salman and Shah, Mubarak and Khan, Fahad},
-  booktitle={MICCAI},
+  author={Hanif, Asif and Naseer, Muzammal and Khan, Salman and Shah, Mubarak and Khan, Fahad Shahbaz},
+  journal={arXiv preprint arXiv:2307.07269},
   year={2023}
 }
 ```
