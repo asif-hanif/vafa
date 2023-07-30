@@ -107,6 +107,8 @@ File `dataset_synapse_18_12.json` contains train-val split (created from train f
 |:-- |:-- |
 | BTCV-Synapse (18-12 split) | [Download](https://drive.google.com/file/d/1-Tst3l2kMrC0rlNGDM9CwvRk_2KRFXOo/view?usp=sharing) |
 
+You can use the command `tar -xzf btcv-synapse.tar.gz` to un-compress the file.
+
 </br>
 
 ## Model
