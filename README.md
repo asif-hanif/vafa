@@ -169,7 +169,7 @@ Use following arguments when launching pixel/voxel domain attacks:
 
 ## Launch Adversarial Training (VAFT) of the Model
 ```shell
-python normal_or_adv_training.py --model_name unet-r --in_channels 1 --out_channel 14 --feature_size=16 --batch_size=3 --max_epochs 5000 --optim_lr=1e-4 --lrschedule=warmup_cosine --infer_overlap=0.5 \
+python run_normal_or_adv_training.py --model_name unet-r --in_channels 1 --out_channel 14 --feature_size=16 --batch_size=3 --max_epochs 5000 --optim_lr=1e-4 --lrschedule=warmup_cosine --infer_overlap=0.5 \
 --save_checkpoint \
 --dataset btcv --data_dir=<PATH_OF_DATASET> \
 --json_list=dataset_synapse_18_12.json \
