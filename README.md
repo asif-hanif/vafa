@@ -144,7 +144,7 @@ Clean and adversarially trained (under VAFA attack) [UNETR](https://openaccess.t
 
 ## Launch VAFA Attack on the Model
 ```shell
-python generate_train_or_val_adv.py --model_name unet-r --feature_size=16 --infer_overlap=0.5 \
+python generate_adv_samples.py --model_name unet-r --feature_size=16 --infer_overlap=0.5 \
 --dataset btcv --data_dir=<PATH_OF_DATASET> \
 --json_list=dataset_synapse_18_12.json \
 --use_pretrained \
@@ -188,7 +188,7 @@ Arugument `--adv_training_mode` in conjunction with `--freq_reg_mode` performs a
 If adversarial images have already been saved and one wants to do inference on the model using saved adversarial images, use following command:
 
 ```shell
-python evaluate_attack_performance.py --model_name unet-r --in_channels 1 --out_channel 14 --feature_size=16 --infer_overlap=0.5 \
+python inference_on_saved_adv_samples.py --model_name unet-r --in_channels 1 --out_channel 14 --feature_size=16 --infer_overlap=0.5 \
 --dataset btcv --data_dir=<PATH_OF_DATASET> \
 --json_list=dataset_synapse_18_12.json \
 --use_pretrained \
