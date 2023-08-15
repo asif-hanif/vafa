@@ -1,6 +1,6 @@
 # Frequency Domain Adversarial Training for Robust Volumetric Medical Segmentation (MICCAI'23)
 
-> [**Frequency Domain Adversarial Training for Robust Volumetric Medical Segmentation**](https://arxiv.org/abs/2307.06948)<br>
+> [**Frequency Domain Adversarial Training for Robust Volumetric Medical Segmentation**](https://arxiv.org/abs/2307.07269)<br>
 > [Asif Hanif](https://scholar.google.com/citations?hl=en&user=6SO2wqUAAAAJ), 
 [Muzammal Naseer](https://scholar.google.ch/citations?user=tM9xKA8AAAAJ&hl=en),
 [Salman Khan](https://salman-h-khan.github.io),
@@ -197,7 +197,7 @@ python inference_on_saved_adv_samples.py --model_name unet-r --in_channels 1 --o
 --attack_name vafa-3d --q_max 20 --steps 20 --block_size 32 32 32 --use_ssim_loss 
 ```
 
-Attack related arguments are used to automaticaaly find the sub-folder containing adversarial images. Sub-folder should be present in parent folder path specified by `--adv_images_dir` argument.  If `--no_sub_dir_adv_images` is mentioned, sub-folder will not be searched and images are assumed to be present directly in the parent folder path specified by `--adv_images_dir` argument. Structure of dataset folder should be same as specified in [Datatset](##dataset) section.
+Attack related arguments are used to automatically find the sub-folder containing adversarial images. Sub-folder should be present in parent folder path specified by `--adv_images_dir` argument.  If `--no_sub_dir_adv_images` is mentioned, sub-folder will not be searched and images are assumed to be present directly in the parent folder path specified by `--adv_images_dir` argument. Structure of dataset folder should be same as specified in [Datatset](##dataset) section.
 
 
 ## Citation
