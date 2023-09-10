@@ -89,7 +89,7 @@ class VAFA(Attack):
         labels: [B,C,H,W,D]
         """
 
-        if self.verbose and (images.max()>1 or images.min()<0) : warnings.warn(f"InfoDrop-3D Attack: Image values are expected to be in the range of [0,1], instead found [min,max]=[{images.min().item()} , {images.max().item()}]")
+        if self.verbose and (images.max()>1 or images.min()<0) : warnings.warn(f"VAFA-3D Attack: Image values are expected to be in the range of [0,1], instead found [min,max]=[{images.min().item()} , {images.max().item()}]")
 
         images   = images.clone().detach().to(self.device)       #  [B,C,H,W,D]
         labels   = labels.clone().detach().to(self.device)       #  [B,C,H,W,D]
@@ -245,7 +245,7 @@ class VAFA_2D(Attack):
         """
         
 
-        if self.verbose and (images.max()>1 or images.min()<0) : warnings.warn(f"InfoDrop-2D Attack: Image values are expected to be in the range of [0,1], instead found [min,max]=[{images.min().item()} , {images.max().item()}]")
+        if self.verbose and (images.max()>1 or images.min()<0) : warnings.warn(f"VAFA-2D Attack: Image values are expected to be in the range of [0,1], instead found [min,max]=[{images.min().item()} , {images.max().item()}]")
 
         images   = images.clone().detach().to(self.device)    #  [B,C,H,W,D]
         labels   = labels.clone().detach().to(self.device)    #  [B,C,H,W,D]
@@ -259,7 +259,7 @@ class VAFA_2D(Attack):
 
         optimizer = torch.optim.Adam([self.q_tables], lr= 0.01)
         
-        blocks = block_splitting_2d(images*255, self.block_size)                  # [B, C, D, H, W] --> [B, C, D, N_Blocks, Block_H, Block_W]
+        blocks = block_splitting_2d(images*255, self.block_size)                      # [B, C, D, H, W] --> [B, C, D, N_Blocks, Block_H, Block_W]
         
         for i in range(self.steps):
             # set requires_grad for q_tables 
